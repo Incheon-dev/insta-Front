@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Library
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import jQuery from "jquery";
+//
+// Module
+//
+//fuse lib
+//
+import { PageList } from "./pages/page_list";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FunctionComponent<any> = () => {
+    Object.assign(window, { toast: (str: string) => {} });
+    Object.assign(window, { $: jQuery });
+    const [isLogin, setisLogin] = useState<boolean>(false);
+
+    return (
+        <BrowserRouter>
+            <PageList isLogin={isLogin} />
+        </BrowserRouter>
+    );
+};
 
 export default App;
