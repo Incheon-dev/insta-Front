@@ -1,23 +1,15 @@
-// Library
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import jQuery from "jquery";
-//
-// Module
-//
-//fuse lib
-//
+import React, { useState, useEffect, Suspense } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+
 import { PageList } from "./pages/page_list";
 
 const App: React.FunctionComponent<any> = () => {
-    Object.assign(window, { toast: (str: string) => {} });
-    Object.assign(window, { $: jQuery });
     const [isLogin, setisLogin] = useState<boolean>(false);
-
     return (
-        <BrowserRouter>
-            <PageList isLogin={isLogin} />
-        </BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+            <PageList isLogin={isLogin} />;
+        </Suspense>
     );
 };
 
