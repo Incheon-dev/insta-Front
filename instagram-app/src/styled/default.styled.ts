@@ -1,4 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
+import TextLogoImg from "../images/Instagram_logo_text.png";
+import LogoImg from "../images/Instagram_logo.png";
 
 export const Container = styled.div`
     width: 100%;
@@ -9,9 +11,6 @@ export const Container = styled.div`
     overflow-y: auto;
     padding: 10px 10px;
 `;
-// export const Logo = styled.img.attrs({ src: LogoImg })`
-//     width: 200px;
-// `;
 
 export const Wrap = styled.div`
     display: flex;
@@ -76,4 +75,10 @@ export const FlexColumns = styled.div`
 export const WarningText = styled.p`
     font-size: 12px;
     color: #e45649;
+`;
+export const TextLogo = styled.img.attrs({ src: TextLogoImg })`
+    width: 100%;
+`;
+export const Logo = styled.img.attrs({ src: LogoImg })`
+    width: 100%;
 `;
