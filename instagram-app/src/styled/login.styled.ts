@@ -10,7 +10,7 @@ export const LoginContainer = styled.div`
     overflow: hidden;
 `;
 
-export const ImgWrap = styled.div`
+export const LoginBannerImgWrap = styled.div`
     width: 50%;
     height: 100%;
     margin-left: auto;
@@ -30,7 +30,7 @@ export const LoginBox = styled.div`
     width: 50%;
     height: 60vh;
     margin-right: auto;
-    padding: 100px 50px;
+    padding: 60px 50px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -58,16 +58,6 @@ export const SignBox = styled.div`
     display: flex;
     margin-right: auto;
     font-size: 14px;
-`;
-export const ButtonGroup = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: auto;
-    & button {
-        margin-bottom: 20px;
-    }
 `;
 
 //  #e0f2ff;

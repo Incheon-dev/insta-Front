@@ -6,14 +6,14 @@ import { Input, Button, Link } from "../components";
 const LoginPage = () => {
     return (
         <S.LoginContainer>
-            <S.ImgWrap>
+            <S.LoginBannerImgWrap>
                 <div>
                     <img
                         src="https://via.placeholder.com/500x600?text=sampleImg"
                         alt=""
                     />
                 </div>
-            </S.ImgWrap>
+            </S.LoginBannerImgWrap>
             <S.LoginWrap>
                 <S.LoginBox>
                     <S.Logobox>
