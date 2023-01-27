@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
-import { InputComponent, ButtonComponent } from "../components";
+import { Input, Button, Link } from "../components";
 
 const LoginPage = () => {
     return (
@@ -19,28 +19,35 @@ const LoginPage = () => {
                     <S.Logobox>
                         <S.TextLogo />
                     </S.Logobox>
-                    <InputComponent
+                    <Input
                         type="text"
                         placeholder="사용자 이름 또는 이메일"
                         onChange={(v: string) => {
                             console.log(v);
                         }}
                     />
-                    <InputComponent
+                    <Input
                         type="password"
                         placeholder="비밀번호"
                         onChange={(v: string) => {
                             console.log(v);
                         }}
                     />
-                    <ButtonComponent
+                    <Button
                         text="로그인"
                         onClick={(v: string) => {
                             console.log(v);
                         }}
                     />
                 </S.LoginBox>
-                <S.SignBox>계정이 없으신가요?</S.SignBox>
+                <S.SignBox>
+                    계정이 없으신가요?
+                    <Link
+                        text="가입하기"
+                        href="/signup"
+                        style={{ marginLeft: "5px" }}
+                    />
+                </S.SignBox>
             </S.LoginWrap>
         </S.LoginContainer>
     );

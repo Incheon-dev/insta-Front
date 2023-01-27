@@ -9,11 +9,9 @@ export type InputPropsType = {
     radius?: number | string;
 };
 
-export const InputComponent: React.FunctionComponent<InputPropsType> = (
-    props
-) => {
+export const Input: React.FunctionComponent<InputPropsType> = (props) => {
     return (
-        <Input
+        <DefaultInput
             type={props.type}
             value={props.value}
             onChange={(e: any) => {
@@ -29,7 +27,7 @@ type StyledProps = {
     radius?: number | string;
 };
 
-const Input = styled.input`
+const DefaultInput = styled.input`
     padding: 10px 15px;
     border: 1px solid #ccc;
     width: 100%;

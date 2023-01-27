@@ -11,11 +11,9 @@ export type ButtonPropsType = {
     disable?: boolean;
 };
 
-export const ButtonComponent: React.FunctionComponent<ButtonPropsType> = (
-    props
-) => {
+export const Button: React.FunctionComponent<ButtonPropsType> = (props) => {
     return (
-        <Button
+        <DefaultBtn
             value={props.value}
             onClick={(e: any) => {
                 props.onClick(e);
@@ -24,7 +22,7 @@ export const ButtonComponent: React.FunctionComponent<ButtonPropsType> = (
             disabled={props.disable}
         >
             {props.text}
-        </Button>
+        </DefaultBtn>
     );
 };
 
@@ -34,7 +32,7 @@ type StyledProps = {
     backgroundColor?: string;
 };
 
-const Button = styled.button`
+const DefaultBtn = styled.button`
     padding: 10px 15px;
     border: 1px solid #ddd;
     width: 100%;
