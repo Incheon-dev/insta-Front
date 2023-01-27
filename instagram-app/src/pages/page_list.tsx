@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 const LoginPage = lazy(() => import("./login.page"));
 const HomePage = lazy(() => import("./home.page"));
+const SignupPage = lazy(() => import("./signup.page"));
 
 type pageListType = {
     isLogin: boolean;
@@ -21,7 +22,7 @@ export const PageList = (props: pageListType) => {
         <Routes>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
-            {/* <Route path="/sign" element={<SignPage />}></Route> */}
+            <Route path="/signup" element={<SignupPage />}></Route>
         </Routes>
     );
 };
