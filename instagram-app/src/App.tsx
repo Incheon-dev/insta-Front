@@ -9,7 +9,7 @@ const App: React.FunctionComponent<any> = () => {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Modal />
-            <PageList isLogin={isLogin} />;
+            <PageList isLogin={isLogin} />
         </Suspense>
     );
 };
