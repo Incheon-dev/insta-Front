@@ -4,6 +4,7 @@ import * as S from "../styled";
 import { Input, Button, Link } from "../components";
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
     return (
         <S.LoginContainer>
             <S.LoginBannerImgWrap>
@@ -21,7 +22,7 @@ const LoginPage = () => {
                     </S.Logobox>
                     <Input
                         type="text"
-                        placeholder="사용자 이름 또는 이메일"
+                        placeholder="이메일"
                         onChange={(v: string) => {
                             console.log(v);
                         }}

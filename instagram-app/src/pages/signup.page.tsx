@@ -12,7 +12,7 @@ const SingupPage = () => {
                 </S.Logobox>
                 <Input
                     type="text"
-                    placeholder="휴대폰 번호 또는 이메일 주소"
+                    placeholder="이메일 주소"
                     onChange={(v: string) => {
                         console.log(v);
                     }}
