@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { reducerState } from "../../store";
+import { reducerState } from "../../store";
+import { modalActions } from "../../store/slice/modal";
 import { useNavigate } from "react-router";
 import * as S from "../../styled";
 
 type ModalButton = {
     text: string;
-    onClick: (value?: any) => void;
+    onClick?: (value?: any) => void;
     style?: React.CSSProperties;
 };
 
@@ -21,11 +22,14 @@ interface ModalProps {
 }
 
 export const Modal = ({ ...props }: ModalProps) => {
-    const [isActive, setisActive] = useState<boolean>(true);
-    // const modalSelector = useSelector((state: reducerState) => state.modal);
-    // useEffect(() => {
-    //     console.log("modalSelector", modalSelector);
-    // }, [modalSelector]);
+    const dispatch = useDispatch();
+    const [isActive, setisActive] = useState<boolean>(false);
+    const modalSelector = useSelector((state: reducerState) => state.modal);
+    useEffect(() => {
+        if (modalSelector.visible != undefined) {
+            setisActive(modalSelector.visible);
+        }
+    }, [modalSelector]);
     useEffect(() => {
         if (props.visible != undefined) {
             setisActive(props.visible);
@@ -36,28 +40,34 @@ export const Modal = ({ ...props }: ModalProps) => {
         <S.ModalBackground $visible={isActive}>
             <S.ModalContainer>
                 <S.ModalHeader>
-                    <S.ModalTitle>{props.title}</S.ModalTitle>
+                    <S.ModalTitle>{modalSelector.title}</S.ModalTitle>
                 </S.ModalHeader>
-                <S.ModalMessage>{props.message}</S.ModalMessage>
+                <S.ModalMessage>{modalSelector.message}</S.ModalMessage>
                 <S.ModalBtnGroup>
-                    {props.ok && (
+                    {modalSelector.ok && (
                         <S.ModalOkBtn
                             onClick={(e) => {
-                                props.ok?.onClick(e);
+                                dispatch(modalActions.closeModal());
+                                if (modalSelector.ok?.onClick) {
+                                    modalSelector.ok?.onClick(e);
+                                }
                             }}
-                            style={{ ...props.ok.style }}
+                            style={{ ...modalSelector.ok.style }}
                         >
-                            {props.ok.text}
+                            {modalSelector.ok.text}
                         </S.ModalOkBtn>
                     )}
-                    {props.cancel && (
+                    {modalSelector.cancel && (
                         <S.ModalCancelBtn
-                            style={{ ...props.cancel.style }}
+                            style={{ ...modalSelector.cancel.style }}
                             onClick={(e) => {
-                                props.cancel?.onClick(e);
+                                dispatch(modalActions.closeModal());
+                                if (modalSelector.cancel?.onClick) {
+                                    modalSelector.cancel?.onClick(e);
+                                }
                             }}
                         >
-                            {props.cancel.text}
+                            {modalSelector.cancel.text}
                         </S.ModalCancelBtn>
                     )}
                 </S.ModalBtnGroup>

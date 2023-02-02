@@ -13,7 +13,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { testSlice, postSlice } from "../store/slice";
+import { testSlice, postSlice, modalSlice } from "../store/slice";
 
 const persistConfig = {
     key: "root",
@@ -25,6 +25,7 @@ export type reducerState = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
     test: testSlice.reducer,
+    modal: modalSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

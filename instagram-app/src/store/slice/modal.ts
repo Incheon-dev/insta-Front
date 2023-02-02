@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-export type testSliceState = {
+export type modalSliceState = {
     value: number;
 };
 type ModalButton = {
     text: string;
-    onClick: (value?: any) => void;
+    onClick?: (value?: any) => void;
     style?: React.CSSProperties;
 };
 export type ModalState = {
@@ -20,7 +20,7 @@ export type ModalState = {
 const initialState: ModalState = {
     visible: false,
 };
-export const testSlice = createSlice({
+export const modalSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
@@ -28,6 +28,7 @@ export const testSlice = createSlice({
             return {
                 ...state,
                 ...action.payload,
+                visible: true,
             };
         },
         closeModal: (state: ModalState) => {
@@ -35,6 +36,4 @@ export const testSlice = createSlice({
         },
     },
 });
-
-// Action creators are generated for each case reducer function
-export const testActions = testSlice.actions;
+export const modalActions = modalSlice.actions;
