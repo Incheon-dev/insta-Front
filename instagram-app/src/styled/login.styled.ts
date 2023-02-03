@@ -17,6 +17,15 @@ export const LoginBannerImgWrap = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
+    @media (max-width: 875px) {
+        display: none;
+    }
+`;
+export const Phone = styled.div`
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    background-color: #000;
 `;
 export const LoginWrap = styled.div`
     display: flex;
@@ -25,6 +34,13 @@ export const LoginWrap = styled.div`
     width: 50%;
     height: 100%;
     margin-left: 20px;
+    & > div {
+        min-width: 350px;
+    }
+    @media (max-width: 875px) {
+        width: auto;
+        margin: 0;
+    }
 `;
 export const LoginBox = styled.div`
     width: 50%;

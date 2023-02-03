@@ -2,31 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
 import { Input, Button, Link } from "../components";
-
+import Img from "../components/images/default";
 import { modalActions } from "../store/slice/modal";
+import loginBanner from "./../images/loginbanner.png";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(
-            modalActions.openModal({
-                title: "로그인 페이지 ",
-                message: "메시지 출력",
-                ok: {
-                    text: "확인",
-                },
-            })
-        );
+        // dispatch(
+        //     modalActions.openModal({
+        //         title: "로그인 페이지 ",
+        //         message: "메시지 출력",
+        //         ok: {
+        //             text: "확인",
+        //         },
+        //     })
+        // );
     }, []);
     return (
         <S.LoginContainer>
             <S.LoginBannerImgWrap>
-                <div>
-                    <img
-                        src="https://via.placeholder.com/500x600?text=sampleImg"
-                        alt=""
-                    />
-                </div>
+                <S.Phone>
+                    <Img src={loginBanner} />
+                </S.Phone>
             </S.LoginBannerImgWrap>
             <S.LoginWrap>
                 <S.LoginBox>
