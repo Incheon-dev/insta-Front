@@ -56,7 +56,7 @@ const SingupPage = () => {
                 />
                 <Input
                     type="password"
-                    placeholder="비밀전호"
+                    placeholder="비밀번호"
                     onChange={(v: any) => {
                         setPassword(v.target.value);
                     }}
