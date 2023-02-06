@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import * as S from "../styled";
 import { Input, Button, Link } from "../components";
 import Img from "../components/images/default";
-import { modalActions } from "../store/slice/modal";
 import loginBanner from "./../images/loginbanner.png";
+import { useAppDispatch } from "../store";
 
 const LoginPage = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        // dispatch(
-        //     modalActions.openModal({
-        //         title: "로그인 페이지 ",
-        //         message: "메시지 출력",
-        //         ok: {
-        //             text: "확인",
-        //         },
-        //     })
-        // );
-    }, []);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     return (
         <S.LoginContainer>
             <S.LoginBannerImgWrap>
@@ -48,7 +38,7 @@ const LoginPage = () => {
                     <Button
                         text="로그인"
                         onClick={(v: string) => {
-                            console.log(v);
+                            navigate("/main");
                         }}
                     />
                 </S.LoginBox>

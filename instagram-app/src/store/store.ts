@@ -1,5 +1,6 @@
 // redux/store/index.js
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import {
     persistStore,
@@ -13,7 +14,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { testSlice, postSlice, modalSlice } from "../store/slice";
+import { testSlice, postSlice, modalSlice, userSlice } from "../store/slice";
 
 const persistConfig = {
     key: "root",
@@ -26,6 +27,7 @@ export type reducerState = ReturnType<typeof rootReducer>;
 const rootReducer = combineReducers({
     test: testSlice.reducer,
     modal: modalSlice.reducer,
+    user: userSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -46,4 +48,7 @@ export const store = configureStore({
             },
         }),
 });
+export type AppDispatch = typeof store.dispatch;
+export const useAppSelector: TypedUseSelectorHook<reducerState> = useSelector;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const persistor = persistStore(store);

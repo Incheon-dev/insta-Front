@@ -1,6 +1,6 @@
 // redux/slice/postSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-
+import { FetchApiPost } from "../network";
 const initialState = {
     posts: [],
 };

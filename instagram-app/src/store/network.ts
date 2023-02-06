@@ -10,7 +10,7 @@ export const isEmpty = (value: any) => {
         return true;
     }
 };
-const domain = "http://localhost:3000";
+const domain = "http://localhost:8080";
 
 /**
  * API 호출 기본 모듈
@@ -58,12 +58,13 @@ export const FetchApiGet = async (
  */
 export const FetchApiPost = async (url: any, params?: any) => {
     try {
+        console.log("여기");
         const access_token = window.localStorage.getItem("access_token");
         const refresh_token = window.localStorage.getItem("refresh_token");
         if (
             access_token == null &&
             url.indexOf("login") == -1 &&
-            url.indexOf("signup") == -1
+            url.indexOf("sign-up") == -1
         )
             throw new Error("");
         if (params == undefined) params = {};
