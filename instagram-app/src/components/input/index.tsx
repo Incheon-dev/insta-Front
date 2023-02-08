@@ -25,12 +25,14 @@ export const Input: React.FunctionComponent<InputPropsType> = (props) => {
 
 type StyledProps = {
     radius?: number | string;
+    width?: number;
 };
 
 const DefaultInput = styled.input`
     padding: 10px 15px;
     border: 1px solid #ccc;
-    width: 100%;
+    width: ${(props: StyledProps) =>
+        typeof props.width ? `${props.width}px` : "100%"};
     background-color: #fff;
     box-sizing: border-box;
     border-radius: ${(props: StyledProps) =>

@@ -1,3 +1,4 @@
+import { modalActions } from "./slice/modal";
 import axios from "axios";
 /**
  * 빈 값 여부를 확인한다.
@@ -31,22 +32,15 @@ export const FetchApiGet = async (
             },
             params: {
                 ...params,
-                access_token: window.localStorage.getItem("access_token"),
-                refresh_token: window.localStorage.getItem("refresh_token"),
+                // access_token: window.localStorage.getItem("access_token"),
+                // refresh_token: window.localStorage.getItem("refresh_token"),
             },
             withCredentials: true,
         });
-        // console.log("RESPONSE", response.data);
-
-        // console.log(response.resultCode);
-
-        if (response.data.resultCode != 200) {
-            throw response.data.errorMsg;
-        }
-
+        console.log("RESPONSE", response);
         return response.data;
     } catch (error: any) {
-        if (!withoutErr) console.error("Error : ", error);
+        console.error("Error : ", error);
         return { resultCode: 9999, errorMessage: error };
     }
 };
@@ -58,7 +52,6 @@ export const FetchApiGet = async (
  */
 export const FetchApiPost = async (url: any, params?: any) => {
     try {
-        console.log("여기");
         const access_token = window.localStorage.getItem("access_token");
         const refresh_token = window.localStorage.getItem("refresh_token");
         if (
@@ -79,14 +72,19 @@ export const FetchApiPost = async (url: any, params?: any) => {
             },
             withCredentials: true,
         });
-
+        console.log(response);
         if (response.data.resultCode != 200) {
             throw response.data.errorMsg;
         }
         return response.data;
     } catch (error: any) {
         console.error("Error : ", error);
-        return { resultCode: 9999, errorMessage: error };
+        modalActions.openModal({
+            title: "오류",
+            message: error.response.data,
+            ok: { text: "확인" },
+        });
+        return { resultCode: error.status, errorMessage: error.response.data };
     }
 };
 

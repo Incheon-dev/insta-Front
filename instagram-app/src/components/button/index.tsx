@@ -9,6 +9,7 @@ export type ButtonPropsType = {
     backgroundColor?: string;
     textColor?: string;
     disable?: boolean;
+    width?: number;
 };
 
 export const Button: React.FunctionComponent<ButtonPropsType> = (props) => {
@@ -20,6 +21,7 @@ export const Button: React.FunctionComponent<ButtonPropsType> = (props) => {
             }}
             radius={props.radius}
             disabled={props.disable}
+            width={props.width}
         >
             {props.text}
         </DefaultBtn>
@@ -30,12 +32,14 @@ type StyledProps = {
     radius?: number | string;
     textColor?: string;
     backgroundColor?: string;
+    width?: number;
 };
 
 const DefaultBtn = styled.button`
     padding: 10px 15px;
     border: 1px solid #ddd;
-    width: 100%;
+    width: ${(props: StyledProps) =>
+        typeof props.width ? `${props.width}px` : "100%"}
     font-weight: bold;
     color: ${(props: StyledProps) =>
         props.textColor ? props.textColor : "#fff"};

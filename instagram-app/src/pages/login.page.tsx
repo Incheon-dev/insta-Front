@@ -25,20 +25,20 @@ const LoginPage = () => {
                         type="text"
                         placeholder="이메일"
                         onChange={(v: string) => {
-                            console.log(v);
+                            // console.log(v);
                         }}
                     />
                     <Input
                         type="password"
                         placeholder="비밀번호"
                         onChange={(v: string) => {
-                            console.log(v);
+                            // console.log(v);
                         }}
                     />
                     <Button
                         text="로그인"
                         onClick={(v: string) => {
-                            navigate("/main");
+                            // navigate("/main");
                         }}
                     />
                 </S.LoginBox>

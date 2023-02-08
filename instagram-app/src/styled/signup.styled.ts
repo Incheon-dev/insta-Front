@@ -18,9 +18,18 @@ export const SignUpBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-contes: center;
+    justify-contents: center;
     background-color: #fff;
+    min-width: 400px;
     border: 1px solid #ccc;
+    & > * {
+        margin-bottom: 20px;
+    }
+`;
+export const SignupWraper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     & > * {
         margin-bottom: 20px;
     }
