@@ -17,16 +17,36 @@ export type accountState = {
         accessToken?: string;
     };
     useAbleEmail?: boolean;
+    isSendVerificationNumber?: boolean;
+    isVerifyEmail?: boolean;
 };
 
 const initialState: accountState = {
     loading: false,
     error: null,
+    isVerifyEmail: false,
+    isSendVerificationNumber: false,
+    useAbleEmail: false,
 };
 export const validateEmail = createAsyncThunk(
     "validateEmail",
     async (email: string) => {
         return await FetchApiGet(`/api/account`, { email: email });
+    }
+);
+export const sendVerificationNumber = createAsyncThunk(
+    "sendVerificationNumber",
+    async (email: string) => {
+        return await FetchApiGet(`/api/account/verify?email=${email}`);
+    }
+);
+export const verifyNumber = createAsyncThunk(
+    "verifyNumber",
+    async (payload: { email: string; authKey: string }) => {
+        return await FetchApiPost(`/api/account/verify`, {
+            email: payload.email,
+            authKey: payload.authKey,
+        });
     }
 );
 
@@ -48,12 +68,55 @@ export const accountSlice = createSlice({
         builder.addCase(
             validateEmail.rejected,
             (state, action: PayloadAction<any>) => {
+                let payload = action.payload;
+                return {
+                    ...state,
+                    ...payload,
+                };
+            }
+        );
+        builder.addCase(
+            sendVerificationNumber.fulfilled,
+            (state, action: PayloadAction<accountState>) => {
+                return {
+                    ...state,
+                    isSendVerificationNumber: true,
+                };
+            }
+        );
+        builder.addCase(
+            sendVerificationNumber.rejected,
+            (state, action: PayloadAction<any>) => {
                 return {
                     ...state,
                     ...action,
                 };
             }
         );
+        builder.addCase(
+            verifyNumber.fulfilled,
+            (state, action: PayloadAction<accountState>) => {
+                return {
+                    ...state,
+                    isVerifyEmail: true,
+                };
+            }
+        );
+        builder.addCase(
+            verifyNumber.rejected,
+            (state, action: PayloadAction<any>) => {
+                return {
+                    ...state,
+                    ...action,
+                };
+            }
+        );
+        builder.addCase(verifyNumber.pending, (state, action) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        });
     },
 });
 export const AccountActions = accountSlice.actions;

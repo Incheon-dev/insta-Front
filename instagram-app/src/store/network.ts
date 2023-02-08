@@ -52,17 +52,17 @@ export const FetchApiGet = async (
  */
 export const FetchApiPost = async (url: any, params?: any) => {
     try {
-        const access_token = window.localStorage.getItem("access_token");
-        const refresh_token = window.localStorage.getItem("refresh_token");
-        if (
-            access_token == null &&
-            url.indexOf("login") == -1 &&
-            url.indexOf("sign-up") == -1
-        )
-            throw new Error("");
+        // const access_token = window.localStorage.getItem("access_token");
+        // const refresh_token = window.localStorage.getItem("refresh_token");
+        // if (
+        //     access_token == null &&
+        //     url.indexOf("login") == -1 &&
+        //     url.indexOf("sign-up") == -1
+        // )
+        //     throw new Error("");
         if (params == undefined) params = {};
-        Object.assign(params, { access_token });
-        Object.assign(params, { refresh_token });
+        // Object.assign(params, { access_token });
+        // Object.assign(params, { refresh_token });
         const response = await axios({
             method: "POST",
             url: domain + url,
@@ -73,9 +73,9 @@ export const FetchApiPost = async (url: any, params?: any) => {
             withCredentials: true,
         });
         console.log(response);
-        if (response.data.resultCode != 200) {
-            throw response.data.errorMsg;
-        }
+        // if (response.data.resultCode != 200) {
+        //     throw response.data.errorMsg;
+        // }
         return response.data;
     } catch (error: any) {
         console.error("Error : ", error);

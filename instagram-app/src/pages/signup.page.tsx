@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../styled";
 import { Input, Button } from "../components";
-import { useAppDispatch } from "../store";
-import { signUp, validateEmail } from "../store/slice";
+import { useAppDispatch, useAppSelector, reducerState } from "../store";
+import {
+    signUp,
+    validateEmail,
+    sendVerificationNumber,
+    modalActions,
+    verifyNumber,
+} from "../store/slice";
 
 const SingupPage = () => {
     const dispatch = useAppDispatch();
+    const accountSelector = useAppSelector(
+        (state: reducerState) => state.account
+    );
     const [email, setEmail] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [nickname, setNickname] = useState<string>("");
@@ -13,7 +22,23 @@ const SingupPage = () => {
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [sex, setSex] = useState<string>("");
     const [isSendEmail, setIsSendEmail] = useState<boolean>(false);
-
+    const [verificationNumber, setVerificationNumber] = useState<string>("");
+    useEffect(() => {
+        if (accountSelector.isSendVerificationNumber) {
+            setIsSendEmail(true);
+        }
+    }, [accountSelector.isSendVerificationNumber]);
+    useEffect(() => {
+        if (accountSelector.isVerifyEmail) {
+            dispatch(
+                modalActions.openModal({
+                    title: "확인",
+                    message: "인증이 완료 되었습니다.",
+                    ok: { text: "확인" },
+                })
+            );
+        }
+    }, [accountSelector.isVerifyEmail]);
     return (
         <S.SignUpContainer>
             <S.SignUpBox>
@@ -70,15 +95,33 @@ const SingupPage = () => {
                         <Button
                             text="다음"
                             onClick={(v: any) => {
-                                let userInfo = {
-                                    email: email,
-                                    name: name,
-                                    nickname: nickname,
-                                    password: password,
-                                    phoneNumber: phoneNumber,
-                                    sex: "남성",
-                                };
-                                dispatch(validateEmail(email));
+                                if (!accountSelector.loading) {
+                                    dispatch(sendVerificationNumber(email));
+                                }
+                            }}
+                        />
+                    </S.SignupWraper>
+                )}
+                {isSendEmail && (
+                    <S.SignupWraper>
+                        전송된 인증번호를 입력해주세요.
+                        <Input
+                            type="text"
+                            placeholder="이메일 주소"
+                            onChange={(v: any) => {
+                                setVerificationNumber(v.target.value);
+                            }}
+                            value={verificationNumber}
+                        />
+                        <Button
+                            text="인증번호 확인"
+                            onClick={(v: any) => {
+                                dispatch(
+                                    verifyNumber({
+                                        email: email,
+                                        authKey: verificationNumber,
+                                    })
+                                );
                             }}
                         />
                     </S.SignupWraper>
