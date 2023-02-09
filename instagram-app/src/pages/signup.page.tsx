@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../styled";
-import { Input, Button } from "../components";
+import { Input, Button, LoadingProgress } from "../components";
 import { useAppDispatch, useAppSelector, reducerState } from "../store";
 import {
     signUp,
@@ -23,9 +23,12 @@ const SingupPage = () => {
     const [sex, setSex] = useState<string>("");
     const [isSendEmail, setIsSendEmail] = useState<boolean>(false);
     const [verificationNumber, setVerificationNumber] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     useEffect(() => {
         if (accountSelector.isSendVerificationNumber) {
             setIsSendEmail(true);
+            setIsLoading(false);
         }
     }, [accountSelector.isSendVerificationNumber]);
     useEffect(() => {
@@ -41,6 +44,7 @@ const SingupPage = () => {
     }, [accountSelector.isVerifyEmail]);
     return (
         <S.SignUpContainer>
+            <LoadingProgress visible={isLoading} />
             <S.SignUpBox>
                 <S.Logobox>
                     <S.TextLogo />
@@ -95,6 +99,7 @@ const SingupPage = () => {
                         <Button
                             text="다음"
                             onClick={(v: any) => {
+                                setIsLoading(true);
                                 if (!accountSelector.loading) {
                                     dispatch(sendVerificationNumber(email));
                                 }
