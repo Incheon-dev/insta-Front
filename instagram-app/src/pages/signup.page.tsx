@@ -26,6 +26,16 @@ const SingupPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        dispatch(
+            modalActions.openModal({
+                title: "확인",
+                message: "인증이 완료 되었습니다...?",
+                ok: { text: "확인" },
+            })
+        );
+    }, []);
+
+    useEffect(() => {
         if (accountSelector.isSendVerificationNumber) {
             setIsSendEmail(true);
             setIsLoading(false);

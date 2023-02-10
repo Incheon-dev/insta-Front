@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type styledProps = {
-    $visible: boolean;
+    visible: boolean;
 };
 
 export const ModalBackground = styled.div`
@@ -15,7 +15,7 @@ export const ModalBackground = styled.div`
     justify-content: center;
     align-items: center;
     visibility: ${(props: styledProps) => {
-        return props.$visible ? "visible" : "hidden";
+        return props.visible ? "visible" : "hidden";
     }};
 `;
 export const ModalContainer = styled.div`
@@ -25,15 +25,28 @@ export const ModalContainer = styled.div`
     border-radius: 30px;
     display: flex;
     padding: 20px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `;
-export const ModalHeader = styled.div``;
-export const ModalTitle = styled.h2``;
+export const ModalHeader = styled.div`
+    height: 20%;
+`;
+export const ModalBody = styled.div`
+    height: 80%;
+`;
+export const ModalTitle = styled.h2`
+    margin: 0;
+`;
 export const ModalBtnGroup = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
-export const ModalOkBtn = styled.button``;
+export const ModalOkBtn = styled.button`
+    padding: 10px 5px;
+    width: 100px;
+`;
 export const ModalCancelBtn = styled.button``;
-export const ModalMessage = styled.p``;
+export const ModalMessage = styled.p`
+    height: 75%;
+`;
