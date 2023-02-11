@@ -22,12 +22,6 @@ import {
     accountSlice,
 } from "../store/slice";
 
-const persistConfig = {
-    key: "root",
-    version: 1,
-    storage,
-};
-
 export type reducerState = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
@@ -36,6 +30,12 @@ const rootReducer = combineReducers({
     user: userSlice.reducer,
     account: accountSlice.reducer,
 });
+const persistConfig = {
+    key: "root",
+    version: 1,
+    storage,
+    blacklist: ["account", "modal"],
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
