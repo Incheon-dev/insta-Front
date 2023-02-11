@@ -12,7 +12,6 @@ export const SignUpContainer = styled.div`
 
 export const SignUpBox = styled.div`
     width: 25%;
-    height: 60vh;
     padding: 60px 50px;
     box-sizing: border-box;
     display: flex;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../styled";
-import { Input, Button, LoadingProgress } from "../components";
+import { Input, Button, LoadingProgress, Select } from "../components";
 import { useAppDispatch, useAppSelector, reducerState } from "../store";
 import {
     signUp,
@@ -19,21 +19,12 @@ const SingupPage = () => {
     const [name, setName] = useState<string>("");
     const [nickname, setNickname] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [password2, setPassword2] = useState<string>("");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [sex, setSex] = useState<string>("");
     const [isSendEmail, setIsSendEmail] = useState<boolean>(false);
     const [verificationNumber, setVerificationNumber] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    useEffect(() => {
-        dispatch(
-            modalActions.openModal({
-                title: "확인",
-                message: "인증이 완료 되었습니다...?",
-                ok: { text: "확인" },
-            })
-        );
-    }, []);
 
     useEffect(() => {
         if (accountSelector.isSendVerificationNumber) {
@@ -52,6 +43,63 @@ const SingupPage = () => {
             );
         }
     }, [accountSelector.isVerifyEmail]);
+
+    const checkEmail = (email: string) => {
+        return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
+            email
+        );
+    };
+    const checkPhoneNumber = (phoneNumber: string) => {
+        return /^\d{3}-\d{4}-\d{4}$/.test(phoneNumber);
+    };
+
+    const sendverifyNumber = () => {
+        if (email == "") {
+            setIsLoading(false);
+            return dispatch(modalActions.modalInfo("이메일을 입력해주세요."));
+        }
+        if (!checkEmail(email)) {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("올바르지 않는 이메일 형식 입니다.")
+            );
+        }
+        if (name == "") {
+            setIsLoading(false);
+            return dispatch(modalActions.modalInfo("성함을 입력해주세요."));
+        }
+        if (phoneNumber == "") {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("핸드폰 번호를 입력해주세요.")
+            );
+        }
+        if (!checkPhoneNumber(phoneNumber)) {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("올바르지 않은 핸드폰 번호 형식입니다.")
+            );
+        }
+        if (nickname == "") {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("사용하실 닉네임을 입력해주세요.")
+            );
+        }
+        if (password == "") {
+            setIsLoading(false);
+            return dispatch(modalActions.modalInfo("비밀번호를 입력해주세요."));
+        }
+        if (password != password2) {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("비밀번호가 일치하지 않습니다.")
+            );
+        }
+        // if (!accountSelector.loading) {
+        //     dispatch(sendVerificationNumber(email));
+        // }
+    };
     return (
         <S.SignUpContainer>
             <LoadingProgress visible={isLoading} />
@@ -79,7 +127,7 @@ const SingupPage = () => {
                         />
                         <Input
                             type="text"
-                            placeholder="전화번호"
+                            placeholder="핸드폰번호"
                             onChange={(v: any) => {
                                 let phoneNumber: string =
                                     v.target.value.replace(
@@ -92,11 +140,25 @@ const SingupPage = () => {
                         />
                         <Input
                             type="text"
-                            placeholder="사용자이름"
+                            placeholder="닉네임"
                             onChange={(v: any) => {
                                 setNickname(v.target.value);
                             }}
                             value={nickname}
+                        />
+                        <Select
+                            value={sex}
+                            options={[
+                                {
+                                    text: "남성",
+                                },
+                                {
+                                    text: "여성",
+                                },
+                            ]}
+                            onChange={(v: any) => {
+                                setSex(v.target.value);
+                            }}
                         />
                         <Input
                             type="password"
@@ -106,13 +168,19 @@ const SingupPage = () => {
                             }}
                             value={password}
                         />
+                        <Input
+                            type="password"
+                            placeholder="비밀번호 확인"
+                            onChange={(v: any) => {
+                                setPassword2(v.target.value);
+                            }}
+                            value={password2}
+                        />
                         <Button
                             text="다음"
                             onClick={(v: any) => {
                                 setIsLoading(true);
-                                if (!accountSelector.loading) {
-                                    dispatch(sendVerificationNumber(email));
-                                }
+                                sendverifyNumber();
                             }}
                         />
                     </S.SignupWraper>
