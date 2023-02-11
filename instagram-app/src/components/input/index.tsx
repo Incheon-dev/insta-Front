@@ -19,6 +19,7 @@ export const Input: React.FunctionComponent<InputPropsType> = (props) => {
             }}
             placeholder={props.placeholder}
             radius={props.radius}
+            autoComplete="new-password" // 자동입력 방지.
         />
     );
 };
