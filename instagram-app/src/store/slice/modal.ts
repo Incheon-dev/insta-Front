@@ -1,3 +1,4 @@
+import { ModalMessage } from "./../../styled/messageModal.styled";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type modalSliceState = {
     value: number;
@@ -19,6 +20,8 @@ export type ModalState = {
 
 const initialState: ModalState = {
     visible: false,
+    title: "",
+    message: "",
 };
 export const modalSlice = createSlice({
     name: "counter",
@@ -33,6 +36,14 @@ export const modalSlice = createSlice({
         },
         closeModal: (state: ModalState) => {
             state.visible = false;
+        },
+        modalInfo: (state, action: PayloadAction<ModalState["message"]>) => {
+            return {
+                ...state,
+                message: action.payload,
+                visible: true,
+                ok: { text: "확인" },
+            };
         },
     },
 });

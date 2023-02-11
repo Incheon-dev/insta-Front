@@ -20,7 +20,6 @@ export const ModalBackground = styled.div`
 `;
 export const ModalContainer = styled.div`
     width: 30%;
-    height: 15%;
     background-color: #fff;
     border-radius: 30px;
     display: flex;
@@ -36,6 +35,7 @@ export const ModalBody = styled.div`
 `;
 export const ModalTitle = styled.h2`
     margin: 0;
+    font-size: 18px;
 `;
 export const ModalBtnGroup = styled.div`
     display: flex;
@@ -45,8 +45,13 @@ export const ModalBtnGroup = styled.div`
 export const ModalOkBtn = styled.button`
     padding: 10px 5px;
     width: 100px;
+    background-color: transparent;
+    border: 1px solid #aaa;
+    border-radius: 10px;
 `;
 export const ModalCancelBtn = styled.button``;
 export const ModalMessage = styled.p`
     height: 75%;
+    font-size: 14px;
+    color: #333;
 `;
