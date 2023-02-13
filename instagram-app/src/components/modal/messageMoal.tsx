@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { reducerState } from "../../store";
-import { modalActions } from "../../store/slice/modal";
+import { useAppDispatch, useAppSelector, reducerState } from "../../store";
+import { modalActions, AccountActions } from "../../store/slice";
 import { useNavigate } from "react-router";
 import * as S from "../../styled";
 
@@ -22,9 +21,12 @@ interface ModalProps {
 }
 
 export const Modal = ({ ...props }: ModalProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isActive, setisActive] = useState<boolean>(false);
-    const modalSelector = useSelector((state: reducerState) => state.modal);
+    const accountSelector = useAppSelector(
+        (state: reducerState) => state.account
+    );
+    const modalSelector = useAppSelector((state: reducerState) => state.modal);
     useEffect(() => {
         if (modalSelector.visible != undefined) {
             setisActive(modalSelector.visible);
@@ -35,6 +37,22 @@ export const Modal = ({ ...props }: ModalProps) => {
             setisActive(props.visible);
         }
     }, [props.visible]);
+
+    useEffect(() => {
+        if (accountSelector.error != null) {
+            dispatch(
+                modalActions.openModal({
+                    message: accountSelector.error,
+                    ok: {
+                        text: "확인",
+                        onClick: () => {
+                            dispatch(AccountActions.clearError());
+                        },
+                    },
+                })
+            );
+        }
+    }, [accountSelector.error]);
 
     return (
         <S.ModalBackground visible={isActive}>

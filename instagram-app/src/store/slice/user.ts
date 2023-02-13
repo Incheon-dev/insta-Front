@@ -23,12 +23,7 @@ const initialState: UserState = {
     profileImage: null,
     sex: "남성",
 };
-export const signUp = createAsyncThunk(
-    "users/signup",
-    async (userInfo: UserState) => {
-        return await FetchApiPost("/api/account/sign-up", userInfo);
-    }
-);
+
 export const getUserList = createAsyncThunk("users/getuserList", async () => {
     return await FetchApiGet("/api/user/list");
 });
@@ -37,27 +32,6 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(
-            signUp.fulfilled,
-            (state, action: PayloadAction<UserState>) => {
-                return {
-                    ...state,
-                    ...action,
-                    status: true,
-                };
-            }
-        );
-        builder.addCase(
-            signUp.rejected,
-            (state, action: PayloadAction<any>) => {
-                return {
-                    ...state,
-                    ...action,
-                    status: false,
-                };
-            }
-        );
-    },
+    extraReducers: (builder) => {},
 });
 export const userActions = userSlice.actions;

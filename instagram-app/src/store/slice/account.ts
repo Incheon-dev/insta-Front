@@ -1,30 +1,19 @@
 // redux/slice/AccountSlice.js
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { FetchApiPost, FetchApiGet } from "../network";
+import { UserState } from "../slice/user";
 export type accountState = {
     loading: boolean;
     error: string | null;
-    userInfo?: {
-        email?: string;
-        newPassword?: string | null;
-        introduction?: string;
-        name?: string;
-        nickname?: string;
-        password?: string;
-        phoneNumber?: string;
-        profileImage?: string;
-        sex?: string;
-        accessToken?: string;
-    };
     useAbleEmail?: boolean;
     isSendVerificationNumber?: boolean;
-    isVerifyEmail?: boolean;
+    isVerifyEmail?: boolean | null;
+    addUser?: boolean;
 };
 
 const initialState: accountState = {
     loading: false,
     error: null,
-    isVerifyEmail: false,
     isSendVerificationNumber: false,
     useAbleEmail: false,
 };
@@ -49,12 +38,31 @@ export const verifyNumber = createAsyncThunk(
         });
     }
 );
+export const signUp = createAsyncThunk(
+    "users/signup",
+    async (userInfo: UserState, { rejectWithValue }) => {
+        try {
+            return await FetchApiPost("/api/account/sign-up", userInfo);
+        } catch (error: any) {
+            console.log(error);
+            throw rejectWithValue(error.response);
+        }
+    }
+);
 
 export const accountSlice = createSlice({
     name: "account",
     initialState,
-    reducers: {},
+    reducers: {
+        clearError: (state) => {
+            return {
+                ...state,
+                error: null,
+            };
+        },
+    },
     extraReducers: (builder) => {
+        // validateEmail
         builder.addCase(
             validateEmail.fulfilled,
             (state, action: PayloadAction<accountState>) => {
@@ -75,6 +83,7 @@ export const accountSlice = createSlice({
                 };
             }
         );
+        // sendVerificationNumber
         builder.addCase(
             sendVerificationNumber.fulfilled,
             (state, action: PayloadAction<accountState>) => {
@@ -93,12 +102,23 @@ export const accountSlice = createSlice({
                 };
             }
         );
+        // verifyNumber
         builder.addCase(
-            verifyNumber.fulfilled,
-            (state, action: PayloadAction<accountState>) => {
+            verifyNumber.pending,
+            (state, action: PayloadAction<accountState["isVerifyEmail"]>) => {
                 return {
                     ...state,
-                    isVerifyEmail: true,
+                    loading: true,
+                    isVerifyEmail: null,
+                };
+            }
+        );
+        builder.addCase(
+            verifyNumber.fulfilled,
+            (state, action: PayloadAction<accountState["isVerifyEmail"]>) => {
+                return {
+                    ...state,
+                    isVerifyEmail: action.payload,
                 };
             }
         );
@@ -111,12 +131,38 @@ export const accountSlice = createSlice({
                 };
             }
         );
-        builder.addCase(verifyNumber.pending, (state, action) => {
+        // signUp
+        builder.addCase(signUp.pending, (state, action: PayloadAction) => {
             return {
                 ...state,
                 loading: true,
+                addUser: false,
             };
         });
+        builder.addCase(
+            signUp.fulfilled,
+            (state, action: PayloadAction<UserState>) => {
+                return {
+                    ...state,
+                    ...action,
+                    addUser: true,
+                };
+            }
+        );
+        builder.addCase(
+            signUp.rejected,
+            (state, action: PayloadAction<any>) => {
+                setTimeout(() => {
+                    state.error = null;
+                }, 1000);
+                return {
+                    ...state,
+                    ...action,
+                    addUser: false,
+                    error: action.payload.data,
+                };
+            }
+        );
     },
 });
 export const AccountActions = accountSlice.actions;

@@ -21,11 +21,23 @@ const SingupPage = () => {
     const [password, setPassword] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const [sex, setSex] = useState<string>("");
+    const [sex, setSex] = useState<string>("남성");
     const [isSendEmail, setIsSendEmail] = useState<boolean>(false);
     const [verificationNumber, setVerificationNumber] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isActiveSignup, setIsSignupBtn] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (accountSelector.addUser) {
+            dispatch(
+                modalActions.openModal({
+                    title: "확인",
+                    message: "가입이 완료되었습니다.",
+                    ok: { text: "확인" },
+                })
+            );
+        }
+    }, [accountSelector.addUser]);
     useEffect(() => {
         if (accountSelector.isSendVerificationNumber) {
             setIsSendEmail(true);
@@ -38,6 +50,15 @@ const SingupPage = () => {
                 modalActions.openModal({
                     title: "확인",
                     message: "인증이 완료 되었습니다.",
+                    ok: { text: "확인" },
+                })
+            );
+            setIsSignupBtn(true);
+        } else if (isSendEmail && accountSelector.isVerifyEmail == false) {
+            dispatch(
+                modalActions.openModal({
+                    title: "확인",
+                    message: "인증번호를 확인해주세요.",
                     ok: { text: "확인" },
                 })
             );
@@ -96,9 +117,9 @@ const SingupPage = () => {
                 modalActions.modalInfo("비밀번호가 일치하지 않습니다.")
             );
         }
-        // if (!accountSelector.loading) {
-        //     dispatch(sendVerificationNumber(email));
-        // }
+        if (!accountSelector.loading) {
+            dispatch(sendVerificationNumber(email));
+        }
     };
     return (
         <S.SignUpContainer>
@@ -187,7 +208,9 @@ const SingupPage = () => {
                 )}
                 {isSendEmail && (
                     <S.SignupWraper>
-                        전송된 인증번호를 입력해주세요.
+                        <S.InfoText>
+                            가입한 이메일 주소로 발송된 인증번호를 확인해주세요.
+                        </S.InfoText>
                         <Input
                             type="text"
                             placeholder="이메일 주소"
@@ -198,6 +221,7 @@ const SingupPage = () => {
                         />
                         <Button
                             text="인증번호 확인"
+                            disable={isActiveSignup}
                             onClick={(v: any) => {
                                 dispatch(
                                     verifyNumber({
@@ -206,6 +230,24 @@ const SingupPage = () => {
                                     })
                                 );
                             }}
+                        />
+                        <hr />
+                        <Button
+                            text="가입완료"
+                            onClick={(v: any) => {
+                                let userInfo = {
+                                    email: email,
+                                    introduction: null,
+                                    name: name,
+                                    nickname: nickname,
+                                    password: password,
+                                    phoneNumber: phoneNumber,
+                                    profileImage: null,
+                                    sex: sex,
+                                };
+                                dispatch(signUp(userInfo));
+                            }}
+                            disable={!isActiveSignup}
                         />
                     </S.SignupWraper>
                 )}

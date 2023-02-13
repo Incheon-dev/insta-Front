@@ -1,3 +1,4 @@
+import { Wrap } from "./default.styled";
 import styled from "styled-components";
 
 export const SignUpContainer = styled.div`
@@ -32,6 +33,11 @@ export const SignupWraper = styled.div`
     & > * {
         margin-bottom: 20px;
     }
+`;
+export const InfoText = styled.p`
+    font-size: 14px;
+    margin-bottom: 10px;
+    white-space: nowrap;
 `;
 
 //  #e0f2ff;
