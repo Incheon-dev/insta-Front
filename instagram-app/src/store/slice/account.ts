@@ -39,7 +39,7 @@ export const verifyNumber = createAsyncThunk(
     }
 );
 export const signUp = createAsyncThunk(
-    "users/signup",
+    "signup",
     async (userInfo: UserState, { rejectWithValue }) => {
         try {
             return await FetchApiPost("/api/account/sign-up", userInfo);
@@ -49,7 +49,20 @@ export const signUp = createAsyncThunk(
         }
     }
 );
-
+export const login = createAsyncThunk(
+    "login",
+    async (payload: UserState, { rejectWithValue }) => {
+        try {
+            return await FetchApiPost("/api/account/login", {
+                email: payload.email,
+                password: payload,
+            });
+        } catch (error: any) {
+            console.log(error);
+            throw rejectWithValue(error.response);
+        }
+    }
+);
 export const accountSlice = createSlice({
     name: "account",
     initialState,
@@ -159,6 +172,35 @@ export const accountSlice = createSlice({
                     ...state,
                     ...action,
                     addUser: false,
+                    error: action.payload.data,
+                };
+            }
+        );
+        // login
+        builder.addCase(login.pending, (state, action: PayloadAction) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        });
+        builder.addCase(
+            login.fulfilled,
+            (state, action: PayloadAction<UserState>) => {
+                return {
+                    ...state,
+                    ...action,
+                    addUser: true,
+                };
+            }
+        );
+        builder.addCase(
+            login.rejected,
+            (state, action: PayloadAction<any>) => {
+                setTimeout(() => {
+                    state.error = null;
+                }, 1000);
+                return {
+                    ...state,
                     error: action.payload.data,
                 };
             }

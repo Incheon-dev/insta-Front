@@ -1,16 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import * as S from "../styled";
-import { Input, Button, Link } from "../components";
+import { Input, Button, Link, LoadingProgress } from "../components";
 import Img from "../components/images/default";
 import loginBanner from "./../images/loginbanner.png";
 import { useAppDispatch } from "../store";
+import { modalActions, AccountActions } from "../store/slice";
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const checkEmail = (email: string) => {
+        return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
+            email
+        );
+    };
+    const sendLogin = () => {
+        if (email == "") {
+            setIsLoading(false);
+            return dispatch(modalActions.modalInfo("이메일을 입력해주세요."));
+        }
+        if (!checkEmail(email)) {
+            setIsLoading(false);
+            return dispatch(
+                modalActions.modalInfo("올바르지 않는 이메일 형식 입니다.")
+            );
+        }
+        if (password == "") {
+            setIsLoading(false);
+            return dispatch(modalActions.modalInfo("비밀번호를 입력해주세요."));
+        }
+    };
     return (
         <S.LoginContainer>
+            <LoadingProgress visible={isLoading} />
             <S.LoginBannerImgWrap>
                 <S.Phone>
                     <Img src={loginBanner} />
@@ -24,20 +50,22 @@ const LoginPage = () => {
                     <Input
                         type="text"
                         placeholder="이메일"
-                        onChange={(v: string) => {
-                            // console.log(v);
+                        onChange={(e: any) => {
+                            setEmail(e.target.value);
                         }}
+                        value={email}
                     />
                     <Input
                         type="password"
                         placeholder="비밀번호"
-                        onChange={(v: string) => {
-                            // console.log(v);
+                        onChange={(e: any) => {
+                            setPassword(e.tartget.value);
                         }}
+                        value={password}
                     />
                     <Button
                         text="로그인"
-                        onClick={(v: string) => {
+                        onClick={() => {
                             // navigate("/main");
                         }}
                     />
