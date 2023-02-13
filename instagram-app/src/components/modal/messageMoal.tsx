@@ -38,22 +38,6 @@ export const Modal = ({ ...props }: ModalProps) => {
         }
     }, [props.visible]);
 
-    useEffect(() => {
-        if (accountSelector.error != null) {
-            dispatch(
-                modalActions.openModal({
-                    message: accountSelector.error,
-                    ok: {
-                        text: "확인",
-                        onClick: () => {
-                            dispatch(AccountActions.clearError());
-                        },
-                    },
-                })
-            );
-        }
-    }, [accountSelector.error]);
-
     return (
         <S.ModalBackground visible={isActive}>
             <S.ModalContainer>

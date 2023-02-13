@@ -8,10 +8,13 @@ import {
     sendVerificationNumber,
     modalActions,
     verifyNumber,
+    AccountActions,
 } from "../store/slice";
+import { useNavigate } from "react-router";
 
 const SingupPage = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const accountSelector = useAppSelector(
         (state: reducerState) => state.account
     );
@@ -33,7 +36,12 @@ const SingupPage = () => {
                 modalActions.openModal({
                     title: "확인",
                     message: "가입이 완료되었습니다.",
-                    ok: { text: "확인" },
+                    ok: {
+                        text: "확인",
+                        onClick: () => {
+                            navigate("/login");
+                        },
+                    },
                 })
             );
         }
@@ -64,6 +72,22 @@ const SingupPage = () => {
             );
         }
     }, [accountSelector.isVerifyEmail]);
+
+    useEffect(() => {
+        if (accountSelector.error != null) {
+            dispatch(
+                modalActions.openModal({
+                    message: accountSelector.error,
+                    ok: {
+                        text: "확인",
+                        onClick: () => {
+                            dispatch(AccountActions.clearError());
+                        },
+                    },
+                })
+            );
+        }
+    }, [accountSelector.error]);
 
     const checkEmail = (email: string) => {
         return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
