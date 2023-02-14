@@ -47,22 +47,25 @@ const LoginPage = () => {
                     <S.Logobox>
                         <S.TextLogo />
                     </S.Logobox>
-                    <Input
-                        type="text"
-                        placeholder="이메일"
-                        onChange={(e: any) => {
-                            setEmail(e.target.value);
-                        }}
-                        value={email}
-                    />
-                    <Input
-                        type="password"
-                        placeholder="비밀번호"
-                        onChange={(e: any) => {
-                            setPassword(e.tartget.value);
-                        }}
-                        value={password}
-                    />
+                    <S.LoinInputBox>
+                        <Input
+                            type="text"
+                            placeholder="이메일"
+                            onChange={(e: any) => {
+                                setEmail(e.target.value);
+                            }}
+                            value={email}
+                        />
+                        <Input
+                            type="password"
+                            placeholder="비밀번호"
+                            onChange={(e: any) => {
+                                setPassword(e.tartget.value);
+                            }}
+                            value={password}
+                        />
+                    </S.LoinInputBox>
+
                     <Button
                         text="로그인"
                         onClick={() => {
