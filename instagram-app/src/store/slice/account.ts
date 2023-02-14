@@ -1,4 +1,5 @@
 // redux/slice/AccountSlice.js
+import { CatchingPokemonSharp } from "@mui/icons-material";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { FetchApiPost, FetchApiGet } from "../network";
 import { UserState } from "../slice/user";
@@ -9,6 +10,7 @@ export type accountState = {
     isSendVerificationNumber?: boolean | null;
     isVerifyEmail?: boolean | null;
     addUser?: boolean;
+    validateEmail?: boolean | null;
 };
 
 const initialState: accountState = {
@@ -18,6 +20,7 @@ const initialState: accountState = {
     isVerifyEmail: false,
     useAbleEmail: false,
     addUser: false,
+    validateEmail: null,
 };
 export const validateEmail = createAsyncThunk(
     "validateEmail",
@@ -78,23 +81,30 @@ export const accountSlice = createSlice({
     },
     extraReducers: (builder) => {
         // validateEmail
+        builder.addCase(validateEmail.pending, (state) => {
+            return {
+                ...state,
+                validateEmail: null,
+            };
+        });
         builder.addCase(
             validateEmail.fulfilled,
-            (state, action: PayloadAction<accountState>) => {
+            (state, action: PayloadAction<accountState["validateEmail"]>) => {
                 let payload = action.payload;
                 return {
                     ...state,
-                    ...payload,
+                    validateEmail: payload,
                 };
             }
         );
         builder.addCase(
             validateEmail.rejected,
             (state, action: PayloadAction<any>) => {
+                console.log("실패 !", action);
                 let payload = action.payload;
                 return {
                     ...state,
-                    ...payload,
+                    validateEmail: null,
                 };
             }
         );

@@ -95,6 +95,17 @@ const SingupPage = () => {
         }
     }, [accountSelector.error]);
 
+    useEffect(() => {
+        if (accountSelector.validateEmail) {
+            setTimeout(() => {
+                setIsLoading(false);
+                dispatch(modalActions.modalInfo("이미 가입된 이메일 입니다."));
+            }, 1000);
+        } else if (accountSelector.validateEmail != null && email != "") {
+            sendverifyNumber();
+        }
+    }, [accountSelector.validateEmail]);
+
     const checkEmail = (email: string) => {
         return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
             email
@@ -237,7 +248,7 @@ const SingupPage = () => {
                             text="다음"
                             onClick={(v: any) => {
                                 setIsLoading(true);
-                                sendverifyNumber();
+                                dispatch(validateEmail(email));
                             }}
                         />
                     </S.SignupWraper>
