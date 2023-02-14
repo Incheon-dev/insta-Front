@@ -43,11 +43,11 @@ export const LoginWrap = styled.div`
     }
 `;
 export const LoginBox = styled.div`
-    width: 50%;
-    height: 60vh;
-    max-height: 500px;
+    width: 40%;
+    height: 50%;
+    max-height: 450px;
     margin-right: auto;
-    padding: 60px 50px;
+    padding: 60px 50px 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -65,8 +65,18 @@ export const Logobox = styled.div`
     height: 70px;
     margin-bottom: 40px;
 `;
+export const LoinInputBox = styled.div`
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 55%;
+    & > input:first-of-type {
+        margin-bottom: 20px;
+    }
+`;
 export const SignBox = styled.div`
-    width: 50%;
+    width: 40%;
     padding: 30px 50px;
     box-sizing: border-box;
     align-items: center;
