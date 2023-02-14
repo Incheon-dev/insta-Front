@@ -40,7 +40,7 @@ const DefaultBtn = styled.button`
     padding: 10px 15px;
     border: 1px solid #ddd;
     width: ${(props: StyledProps) =>
-        typeof props.width ? `${props.width}px` : "100%"}
+        props.width ? `${props.width}px;` : "100%;"}
     font-weight: bold;
     color: ${(props: StyledProps) =>
         props.textColor ? props.textColor : "#fff"};
