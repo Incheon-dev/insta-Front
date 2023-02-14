@@ -67,7 +67,8 @@ export const Logobox = styled.div`
 `;
 export const SignBox = styled.div`
     width: 50%;
-    height: 8vh;
+    padding: 30px 50px;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
     background-color: #fff;

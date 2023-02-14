@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../styled";
-import { Input, Button, LoadingProgress, Select } from "../components";
+import { Input, Button, LoadingProgress, Select, Link } from "../components";
 import { useAppDispatch, useAppSelector, reducerState } from "../store";
 import {
     signUp,
@@ -244,6 +244,7 @@ const SingupPage = () => {
                             }}
                             value={password2}
                         />
+
                         <Button
                             text="다음"
                             onClick={(v: any) => {
@@ -299,6 +300,14 @@ const SingupPage = () => {
                     </S.SignupWraper>
                 )}
             </S.SignUpBox>
+            <S.SingupLinkBox>
+                계정이 있으신가요?
+                <Link
+                    text="로그인"
+                    href="/login"
+                    style={{ marginLeft: "5px" }}
+                />
+            </S.SingupLinkBox>
         </S.SignUpContainer>
     );
 };

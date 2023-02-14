@@ -19,6 +19,7 @@ export const Button: React.FunctionComponent<ButtonPropsType> = (props) => {
             onClick={(e: any) => {
                 props.onClick(e);
             }}
+            backgroundColor={props.backgroundColor}
             radius={props.radius}
             disabled={props.disable}
             width={props.width}
