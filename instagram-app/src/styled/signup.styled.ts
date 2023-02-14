@@ -9,6 +9,7 @@ export const SignUpContainer = styled.div`
     align-items: center;
     background-color: #eee;
     overflow: hidden;
+    flex-direction: column;
 `;
 
 export const SignUpBox = styled.div`
@@ -40,4 +41,17 @@ export const InfoText = styled.p`
     white-space: nowrap;
 `;
 
+export const SingupLinkBox = styled.div`
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    font-size: 14px;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    min-width: 400px;
+    margin-top: 10px;
+`;
 //  #e0f2ff;
