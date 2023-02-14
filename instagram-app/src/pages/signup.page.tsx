@@ -31,6 +31,11 @@ const SingupPage = () => {
     const [isActiveSignup, setIsSignupBtn] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsSendEmail(false);
+        setIsSignupBtn(false);
+    }, []);
+
+    useEffect(() => {
         if (accountSelector.addUser) {
             dispatch(
                 modalActions.openModal({
@@ -49,11 +54,11 @@ const SingupPage = () => {
     useEffect(() => {
         if (accountSelector.isSendVerificationNumber) {
             setIsSendEmail(true);
-            setIsLoading(false);
         }
+        setIsLoading(false);
     }, [accountSelector.isSendVerificationNumber]);
     useEffect(() => {
-        if (accountSelector.isVerifyEmail) {
+        if (accountSelector.isVerifyEmail && isSendEmail) {
             dispatch(
                 modalActions.openModal({
                     title: "확인",
@@ -82,6 +87,7 @@ const SingupPage = () => {
                         text: "확인",
                         onClick: () => {
                             dispatch(AccountActions.clearError());
+                            navigate("/login");
                         },
                     },
                 })
@@ -147,7 +153,7 @@ const SingupPage = () => {
     };
     return (
         <S.SignUpContainer>
-            <LoadingProgress visible={isLoading} />
+            <LoadingProgress visible={isLoading ? 1 : 0} />
             <S.SignUpBox>
                 <S.Logobox>
                     <S.TextLogo />
@@ -172,13 +178,19 @@ const SingupPage = () => {
                         />
                         <Input
                             type="text"
-                            placeholder="핸드폰번호"
-                            onChange={(v: any) => {
-                                let phoneNumber: string =
-                                    v.target.value.replace(
-                                        /^(\d{3})(\d{4})(\d{4})$/,
-                                        `$1-$2-$3`
-                                    );
+                            placeholder="핸드폰번호 ( - 없이 입력 )"
+                            onChange={(v) => {
+                                let value = v.target.value.replaceAll("-", "");
+                                if (/[^0-9]/g.test(value) || value.length > 11)
+                                    return;
+                                setPhoneNumber(value);
+                            }}
+                            onBlur={(v) => {
+                                let value = v.target.value.replaceAll("-", "");
+                                let phoneNumber: string = value.replace(
+                                    /^(\d{3})(\d{4})(\d{4})$/,
+                                    `$1-$2-$3`
+                                );
                                 setPhoneNumber(phoneNumber);
                             }}
                             value={phoneNumber}

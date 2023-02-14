@@ -6,7 +6,7 @@ export type accountState = {
     loading: boolean;
     error: string | null;
     useAbleEmail?: boolean;
-    isSendVerificationNumber?: boolean;
+    isSendVerificationNumber?: boolean | null;
     isVerifyEmail?: boolean | null;
     addUser?: boolean;
 };
@@ -14,8 +14,10 @@ export type accountState = {
 const initialState: accountState = {
     loading: false,
     error: null,
-    isSendVerificationNumber: false,
+    isSendVerificationNumber: null,
+    isVerifyEmail: false,
     useAbleEmail: false,
+    addUser: false,
 };
 export const validateEmail = createAsyncThunk(
     "validateEmail",
@@ -97,6 +99,14 @@ export const accountSlice = createSlice({
             }
         );
         // sendVerificationNumber
+        builder.addCase(sendVerificationNumber.pending, (state) => {
+            return {
+                ...state,
+                loading: true,
+                isVerifyEmail: null,
+                isSendVerificationNumber: false,
+            };
+        });
         builder.addCase(
             sendVerificationNumber.fulfilled,
             (state, action: PayloadAction<accountState>) => {
@@ -112,6 +122,7 @@ export const accountSlice = createSlice({
                 return {
                     ...state,
                     ...action,
+                    isSendVerificationNumber: false,
                 };
             }
         );
@@ -140,7 +151,7 @@ export const accountSlice = createSlice({
             (state, action: PayloadAction<any>) => {
                 return {
                     ...state,
-                    ...action,
+                    isVerifyEmail: false,
                 };
             }
         );
@@ -172,6 +183,8 @@ export const accountSlice = createSlice({
                     ...state,
                     ...action,
                     addUser: false,
+                    isSendVerificationNumber: false,
+                    isVerifyEmail: false,
                     error: action.payload.data,
                 };
             }
@@ -193,18 +206,15 @@ export const accountSlice = createSlice({
                 };
             }
         );
-        builder.addCase(
-            login.rejected,
-            (state, action: PayloadAction<any>) => {
-                setTimeout(() => {
-                    state.error = null;
-                }, 1000);
-                return {
-                    ...state,
-                    error: action.payload.data,
-                };
-            }
-        );
+        builder.addCase(login.rejected, (state, action: PayloadAction<any>) => {
+            setTimeout(() => {
+                state.error = null;
+            }, 1000);
+            return {
+                ...state,
+                error: action.payload.data,
+            };
+        });
     },
 });
 export const AccountActions = accountSlice.actions;

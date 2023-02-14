@@ -22,10 +22,13 @@ export const Select: React.FunctionComponent<SelectPropsType> = (props) => {
             }}
             radius={props.radius}
         >
-            {props.options.map((option: OptionPropsType) => {
+            {props.options.map((_option: OptionPropsType, i: number) => {
                 return (
-                    <Option value={option.value ? option.value : option.text}>
-                        {option.text}
+                    <Option
+                        key={i}
+                        value={_option.value ? _option.value : _option.text}
+                    >
+                        {_option.text}
                     </Option>
                 );
             })}

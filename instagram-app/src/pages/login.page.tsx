@@ -36,7 +36,7 @@ const LoginPage = () => {
     };
     return (
         <S.LoginContainer>
-            <LoadingProgress visible={isLoading} />
+            <LoadingProgress visible={isLoading ? 1 : 0} />
             <S.LoginBannerImgWrap>
                 <S.Phone>
                     <Img src={loginBanner} />

@@ -6,7 +6,7 @@ import CircularProgress, {
 import styled from "styled-components";
 
 type LoadingProgressProps = {
-    visible: boolean;
+    visible: number;
     progressColor?: string;
     bgColor?: string;
 };

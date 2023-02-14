@@ -4,9 +4,12 @@ import styled from "styled-components";
 export type InputPropsType = {
     type: string;
     value?: string;
-    onChange: (v: any) => void;
+    onChange?: (v: any) => void;
+    onKeyUp?: (v: any) => void;
+    onBlur?: (v: any) => void;
     placeholder?: string;
     radius?: number | string;
+    maxLength?: number;
 };
 
 export const Input: React.FunctionComponent<InputPropsType> = (props) => {
@@ -15,7 +18,19 @@ export const Input: React.FunctionComponent<InputPropsType> = (props) => {
             type={props.type}
             value={props.value}
             onChange={(e: any) => {
-                props.onChange(e);
+                if (props.onChange) {
+                    props.onChange(e);
+                }
+            }}
+            onKeyUp={(e: any) => {
+                if (props.onKeyUp) {
+                    props.onKeyUp(e);
+                }
+            }}
+            onBlur={(e: any) => {
+                if (props.onBlur) {
+                    props.onBlur(e);
+                }
             }}
             placeholder={props.placeholder}
             radius={props.radius}
