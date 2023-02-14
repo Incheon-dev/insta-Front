@@ -54,7 +54,7 @@ const DefaultInput = styled.input`
     border-radius: ${(props: StyledProps) =>
         typeof props.radius == "string" ? props.radius : `${props.radius}px`};
     &:focus-visible {
-        border: 3px solid #0090f8;
+        border: 2px solid #0090f8;
         outline: none;
     }
 `;
