@@ -5,7 +5,7 @@ import { Input, Button, Link, LoadingProgress } from "../components";
 import Img from "../components/images/default";
 import loginBanner from "./../images/loginbanner.png";
 import { useAppDispatch } from "../store";
-import { modalActions, AccountActions } from "../store/slice";
+import { modalActions, login, UserState } from "../store/slice";
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
@@ -23,16 +23,15 @@ const LoginPage = () => {
             setIsLoading(false);
             return dispatch(modalActions.modalInfo("이메일을 입력해주세요."));
         }
-        if (!checkEmail(email)) {
-            setIsLoading(false);
-            return dispatch(
-                modalActions.modalInfo("올바르지 않는 이메일 형식 입니다.")
-            );
-        }
         if (password == "") {
             setIsLoading(false);
             return dispatch(modalActions.modalInfo("비밀번호를 입력해주세요."));
         }
+        let loginInfo: UserState = {
+            email: email,
+            password: password,
+        };
+        dispatch(login(loginInfo));
     };
     return (
         <S.LoginContainer>
@@ -60,7 +59,7 @@ const LoginPage = () => {
                             type="password"
                             placeholder="비밀번호"
                             onChange={(e: any) => {
-                                setPassword(e.tartget.value);
+                                setPassword(e.target.value);
                             }}
                             value={password}
                         />
@@ -69,7 +68,7 @@ const LoginPage = () => {
                     <Button
                         text="로그인"
                         onClick={() => {
-                            // navigate("/main");
+                            sendLogin();
                         }}
                     />
                 </S.LoginBox>

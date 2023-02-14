@@ -3,6 +3,7 @@ import { CatchingPokemonSharp } from "@mui/icons-material";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { FetchApiPost, FetchApiGet } from "../network";
 import { UserState } from "../slice/user";
+import { setCookie } from "../cookies";
 export type accountState = {
     loading: boolean;
     error: string | null;
@@ -60,7 +61,7 @@ export const login = createAsyncThunk(
         try {
             return await FetchApiPost("/api/account/login", {
                 email: payload.email,
-                password: payload,
+                password: payload.password,
             });
         } catch (error: any) {
             console.log(error);
@@ -209,10 +210,10 @@ export const accountSlice = createSlice({
         builder.addCase(
             login.fulfilled,
             (state, action: PayloadAction<UserState>) => {
+                let authorization = `Bearer ${action.payload}`;
+                setCookie("authorization", authorization);
                 return {
                     ...state,
-                    ...action,
-                    addUser: true,
                 };
             }
         );

@@ -2,14 +2,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { FetchApiPost, FetchApiGet } from "../network";
 export type UserState = {
-    email: string;
+    email?: string;
     introduction?: string | null;
-    name: string;
-    nickname: string;
-    password: string;
-    phoneNumber: string;
+    name?: string;
+    nickname?: string;
+    password?: string;
+    phoneNumber?: string;
     profileImage?: string | null;
-    sex: string;
+    sex?: string;
     status?: boolean;
 };
 
