@@ -1,9 +1,14 @@
 // redux/slice/AccountSlice.js
-import { CatchingPokemonSharp } from "@mui/icons-material";
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { FetchApiPost, FetchApiGet } from "../network";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { onLoginSuccess } from "../network";
+import {
+    validateEmail,
+    sendVerificationNumber,
+    verifyNumber,
+    signUp,
+    login,
+} from "../asynckThunks/account";
 import { UserState } from "../slice/user";
-import { setCookie } from "../cookies";
 export type accountState = {
     loading: boolean;
     error: string | null;
@@ -12,6 +17,7 @@ export type accountState = {
     isVerifyEmail?: boolean | null;
     addUser?: boolean;
     validateEmail?: boolean | null;
+    isLogin: boolean;
 };
 
 const initialState: accountState = {
@@ -22,53 +28,9 @@ const initialState: accountState = {
     useAbleEmail: false,
     addUser: false,
     validateEmail: null,
+    isLogin: false,
 };
-export const validateEmail = createAsyncThunk(
-    "validateEmail",
-    async (email: string) => {
-        return await FetchApiGet(`/api/account`, { email: email });
-    }
-);
-export const sendVerificationNumber = createAsyncThunk(
-    "sendVerificationNumber",
-    async (email: string) => {
-        return await FetchApiGet(`/api/account/verify?email=${email}`);
-    }
-);
-export const verifyNumber = createAsyncThunk(
-    "verifyNumber",
-    async (payload: { email: string; authKey: string }) => {
-        return await FetchApiPost(`/api/account/verify`, {
-            email: payload.email,
-            authKey: payload.authKey,
-        });
-    }
-);
-export const signUp = createAsyncThunk(
-    "signup",
-    async (userInfo: UserState, { rejectWithValue }) => {
-        try {
-            return await FetchApiPost("/api/account/sign-up", userInfo);
-        } catch (error: any) {
-            console.log(error);
-            throw rejectWithValue(error.response);
-        }
-    }
-);
-export const login = createAsyncThunk(
-    "login",
-    async (payload: UserState, { rejectWithValue }) => {
-        try {
-            return await FetchApiPost("/api/account/login", {
-                email: payload.email,
-                password: payload.password,
-            });
-        } catch (error: any) {
-            console.log(error);
-            throw rejectWithValue(error.response);
-        }
-    }
-);
+
 export const accountSlice = createSlice({
     name: "account",
     initialState,
@@ -187,9 +149,6 @@ export const accountSlice = createSlice({
         builder.addCase(
             signUp.rejected,
             (state, action: PayloadAction<any>) => {
-                setTimeout(() => {
-                    state.error = null;
-                }, 1000);
                 return {
                     ...state,
                     ...action,
@@ -210,20 +169,21 @@ export const accountSlice = createSlice({
         builder.addCase(
             login.fulfilled,
             (state, action: PayloadAction<UserState>) => {
-                let authorization = `Bearer ${action.payload}`;
-                setCookie("authorization", authorization);
+                onLoginSuccess(action.payload);
                 return {
                     ...state,
+                    isLogin: true,
                 };
             }
         );
         builder.addCase(login.rejected, (state, action: PayloadAction<any>) => {
-            setTimeout(() => {
-                state.error = null;
-            }, 1000);
+            let status: number = action.payload.status;
+            let msg: string | null = null;
+            console.log("action.payload", action.payload);
+            if (status == 401) msg = "아이디 또는 비밀번호를 확인해주세요.";
             return {
                 ...state,
-                error: action.payload.data,
+                error: msg,
             };
         });
     },
