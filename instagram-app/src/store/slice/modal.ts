@@ -24,7 +24,7 @@ const initialState: ModalState = {
     message: "",
 };
 export const modalSlice = createSlice({
-    name: "counter",
+    name: "modal",
     initialState,
     reducers: {
         openModal: (state, action: PayloadAction<ModalState>) => {
