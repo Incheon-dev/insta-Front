@@ -6,6 +6,10 @@ import { PageList } from "./pages/page_list";
 
 const App: React.FunctionComponent<any> = () => {
     const [isLogin, setisLogin] = useState<boolean>(false);
+    useEffect(()=>{
+        let _isLogin = window.sessionStorage.getItem('isLogin');
+        if(_isLogin)setisLogin(true);
+    },[])
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Modal />

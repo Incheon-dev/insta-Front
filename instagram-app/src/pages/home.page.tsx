@@ -3,6 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import * as S from "@/styled";
 
 const HomePage = () => {
-    return <div>로그인 페이지 입니다.</div>;
+    return <div>홈페이지</div>;
 };
 export default HomePage;

@@ -4,15 +4,56 @@ import * as S from "../styled";
 import { Input, Button, Link, LoadingProgress } from "../components";
 import Img from "../components/images/default";
 import loginBanner from "./../images/loginbanner.png";
-import { useAppDispatch } from "../store";
-import { modalActions, login, UserState } from "../store/slice";
+import { useAppDispatch ,useAppSelector,reducerState} from "../store";
+import {
+    login
+} from "../store/asynckThunks/account";
+import { modalActions, UserState ,AccountActions} from "../store/slice";
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const accountSelector = useAppSelector(
+        (state: reducerState) => state.account
+    );
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    useEffect(()=>{
+        let _isLogin = window.sessionStorage.getItem('isLogin');
+        //로그인을 했는데 로그인 페이지로 온다면 mainPage로 이동시키기
+        if(_isLogin)navigate('/',{replace:true}); 
+    },[])
+    useEffect(()=>{
+        if (accountSelector.error != null) {
+            let msg:string = accountSelector.error;
+            setTimeout(() => {
+                setIsLoading(false);
+                dispatch(
+                    modalActions.openModal({
+                        message: msg,
+                        ok: {
+                            text: "확인",
+                            onClick: () => {
+                                onClickModal ()
+                            },
+                        },
+                    })
+                );       
+            }, 1000);
+        }
+    },[accountSelector.error])
+    useEffect(()=>{
+        if(accountSelector.isLogin){
+            setTimeout(() => {
+                setIsLoading(false);
+                navigate('/',{replace:true})             
+            }, 1000);
+        } 
+    },[accountSelector.isLogin])
+    const onClickModal = ()=>{
+        dispatch(AccountActions.clearError());
+    }
     const checkEmail = (email: string) => {
         return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
             email
@@ -31,6 +72,7 @@ const LoginPage = () => {
             email: email,
             password: password,
         };
+        setIsLoading(true);
         dispatch(login(loginInfo));
     };
     return (
@@ -68,6 +110,7 @@ const LoginPage = () => {
                     <Button
                         text="로그인"
                         onClick={() => {
+                            setIsLoading(true);
                             sendLogin();
                         }}
                     />

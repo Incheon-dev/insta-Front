@@ -3,13 +3,12 @@ import * as S from "../styled";
 import { Input, Button, LoadingProgress, Select, Link } from "../components";
 import { useAppDispatch, useAppSelector, reducerState } from "../store";
 import {
-    signUp,
-    validateEmail,
-    sendVerificationNumber,
     modalActions,
-    verifyNumber,
     AccountActions,
 } from "../store/slice";
+import {
+    verifyNumber,sendVerificationNumber,validateEmail,signUp
+} from "../store/asynckThunks/account"
 import { useNavigate } from "react-router";
 
 const SingupPage = () => {
