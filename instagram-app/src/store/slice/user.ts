@@ -24,10 +24,6 @@ const initialState: UserState = {
     sex: "남성",
 };
 
-export const getUserList = createAsyncThunk("users/getuserList", async () => {
-    return await FetchApiGet("/api/user/list");
-});
-
 export const userSlice = createSlice({
     name: "user",
     initialState,
