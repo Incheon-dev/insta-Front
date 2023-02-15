@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { FetchApiPost, FetchApiGet ,onLoginSuccess} from "../network";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { FetchApiPost, FetchApiGet } from "../network";
 import { UserState } from "../slice/user";
 
 export const validateEmail = createAsyncThunk(

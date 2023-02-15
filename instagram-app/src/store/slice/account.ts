@@ -129,7 +129,7 @@ export const accountSlice = createSlice({
             }
         );
         // signUp
-        builder.addCase(signUp.pending, (state, action: PayloadAction) => {
+        builder.addCase(signUp.pending, (state) => {
             return {
                 ...state,
                 loading: true,
@@ -160,7 +160,7 @@ export const accountSlice = createSlice({
             }
         );
         // login
-        builder.addCase(login.pending, (state, action: PayloadAction) => {
+        builder.addCase(login.pending, (state) => {
             return {
                 ...state,
                 loading: true,
@@ -179,7 +179,6 @@ export const accountSlice = createSlice({
         builder.addCase(login.rejected, (state, action: PayloadAction<any>) => {
             let status: number = action.payload.status;
             let msg: string | null = null;
-            console.log("action.payload", action.payload);
             if (status == 401) msg = "아이디 또는 비밀번호를 확인해주세요.";
             return {
                 ...state,
