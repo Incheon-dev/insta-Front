@@ -227,3 +227,14 @@ export const FetchApiDelete = async (url: any, params?: any) => {
     }
     return response.data;
 };
+
+/**
+ * Login 이후 처리 로직
+ * @param response /api/login의 응답값 (JWT TOKEN)
+ */
+export const onLoginSuccess = (response:any) => {
+    const { accessToken } = response;
+    window.sessionStorage.setItem("isLogin","true");
+    window.sessionStorage.setItem("Authorization",`Bearer ${accessToken}`);
+
+}
