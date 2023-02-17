@@ -14,18 +14,11 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import {
-    testSlice,
-    postSlice,
-    modalSlice,
-    userSlice,
-    accountSlice,
-} from "../store/slice";
+import { postSlice, modalSlice, userSlice, accountSlice } from "../store/slice";
 
 export type reducerState = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
-    test: testSlice.reducer,
     modal: modalSlice.reducer,
     user: userSlice.reducer,
     account: accountSlice.reducer,
@@ -43,7 +36,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck:false
+            serializableCheck: false,
         }),
 });
 export type AppDispatch = typeof store.dispatch;
