@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,7 +22,6 @@ interface Props {
      */
     navList: navType[];
     window?: () => Window;
-    visible: boolean;
     useMenus?: boolean;
 }
 
@@ -66,7 +65,7 @@ export default function ResponsiveDrawer(props: Props) {
                             width: drawerWidth,
                         },
                     }}
-                    open={props.visible}
+                    open
                 >
                     {drawer}
                 </Drawer>
