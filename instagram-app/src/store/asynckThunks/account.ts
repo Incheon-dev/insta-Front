@@ -42,7 +42,8 @@ export const login = createAsyncThunk(
                 password: payload.password,
             });
         } catch (error: any) {
-            throw rejectWithValue(error.response.data);
+            console.log("error", error);
+            throw rejectWithValue(error.response);
         }
     }
 );

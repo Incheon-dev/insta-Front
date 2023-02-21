@@ -179,7 +179,8 @@ export const accountSlice = createSlice({
         builder.addCase(login.rejected, (state, action: PayloadAction<any>) => {
             let status: number = action.payload.status;
             let msg: string | null = null;
-            if (status == 401) msg = "아이디 또는 비밀번호를 확인해주세요.";
+            if (status == 401) msg = "로그인 만료";
+            if (status == 500) msg = "아이디 또는 비밀번호를 확인해주세요.";
             return {
                 ...state,
                 error: msg,
