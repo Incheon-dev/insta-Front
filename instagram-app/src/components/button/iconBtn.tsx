@@ -1,52 +1,27 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import MTypography from "@material-ui/core/Typography";
-import MIconButton, {
-    IconButtonProps as MIconButtonProps,
-} from "@material-ui/core/IconButton";
-//
-// import Icon, { FinalIconProps } from "@/components/atoms/image/icon";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
-
-export type IconButtonProps = {
-    // icon: FinalIconProps;
-    text?: string;
-    buttonStyle?: CSSProperties;
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+//
+interface IconBtnProps extends IconButtonProps {
+    icons: any;
     style?: CSSProperties;
-    textStyle?: CSSProperties;
-};
+    onClick?: (e?: any) => void;
+}
 
-const IconButton: React.FC<IconButtonProps & MIconButtonProps> = (
-    props: IconButtonProps & MIconButtonProps
+export const IconBtn: React.FunctionComponent<IconBtnProps> = (
+    props: IconBtnProps
 ) => {
-    const useStyles = makeStyles((theme) => ({
-        iconButtonLabel: {
-            ...props.buttonStyle,
-        },
-        root: {
-            ...props.style,
-        },
-        text: {
-            ...props.textStyle,
-        },
-    }));
-
-    const style = useStyles();
     return (
-        <MIconButton
-            {...props}
-            classes={{ label: style.iconButtonLabel, root: style.root }}
+        <IconButton
+            onClick={(e: any) => {
+                if (props.onClick) {
+                    props.onClick(e);
+                }
+            }}
+            size={props.size}
         >
-            {/* <Icon {...props.icon} /> */}
-            {props.text ? (
-                <MTypography classes={{ root: style.text }}>
-                    {props.text}
-                </MTypography>
-            ) : (
-                <></>
-            )}
-        </MIconButton>
+            {props.icons}
+        </IconButton>
     );
 };
-
-export default IconButton;

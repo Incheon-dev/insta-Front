@@ -1,3 +1,4 @@
+import { CssBaselineProps } from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -9,20 +10,25 @@ export type ButtonPropsType = {
     backgroundColor?: string;
     textColor?: string;
     disable?: boolean;
-    width?: number;
+    width?: number | string;
+    border?: string;
+    style?: React.CSSProperties;
 };
 
 export const Button: React.FunctionComponent<ButtonPropsType> = (props) => {
     return (
         <DefaultBtn
+            style={props.style}
             value={props.value}
             onClick={(e: any) => {
                 props.onClick(e);
             }}
+            textColor={props.textColor}
             backgroundColor={props.backgroundColor}
             radius={props.radius}
             disabled={props.disable}
             width={props.width}
+            border={props.border}
         >
             {props.text}
         </DefaultBtn>
@@ -33,14 +39,20 @@ type StyledProps = {
     radius?: number | string;
     textColor?: string;
     backgroundColor?: string;
-    width?: number;
+    width?: number | string;
+    border?: string;
 };
 
 const DefaultBtn = styled.button`
     padding: 10px 15px;
-    border: 1px solid #ddd;
+    border:${(props: StyledProps) =>
+        props.border ? props.border : "1px solid #ddd"};
     width: ${(props: StyledProps) =>
-        props.width ? `${props.width}px;` : "100%;"}
+        props.width
+            ? typeof props.width == "string"
+                ? props.width
+                : `${props.width}px;`
+            : "100%;"}
     font-weight: bold;
     color: ${(props: StyledProps) =>
         props.textColor ? props.textColor : "#fff"};
