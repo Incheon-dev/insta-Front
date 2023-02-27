@@ -10,11 +10,13 @@ export type InputPropsType = {
     placeholder?: string;
     radius?: number | string;
     maxLength?: number;
+    style?: React.CSSProperties;
 };
 
 export const Input: React.FunctionComponent<InputPropsType> = (props) => {
     return (
         <DefaultInput
+            style={{ ...props.style }}
             type={props.type}
             value={props.value}
             onChange={(e: any) => {
@@ -48,7 +50,7 @@ const DefaultInput = styled.input`
     padding: 10px 15px;
     border: 1px solid #ccc;
     width: ${(props: StyledProps) =>
-        typeof props.width ? `${props.width}px` : "100%"};
+        props.width ? `${props.width}px` : "100%"};
     background-color: #fff;
     box-sizing: border-box;
     border-radius: ${(props: StyledProps) =>

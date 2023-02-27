@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Img from "../images/default";
-import { Button } from "../button";
+import { Input, Button } from "../";
 import { IconBtn } from "../button/iconBtn";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
@@ -15,7 +15,7 @@ export type ListCardProps = {
 };
 export const ListCard = (props: ListCardProps) => {
     const [isMore, setIsMore] = useState<boolean>(false);
-
+    const [comment, setComment] = useState<string>("");
     return (
         <CardContainer>
             <CardHeader>
@@ -36,7 +36,10 @@ export const ListCard = (props: ListCardProps) => {
                     <IconBtn
                         icons={
                             <SendIcon
-                                style={{ transform: "rotateZ(-45deg)" }}
+                                style={{
+                                    transform:
+                                        "rotateZ(-45deg) translateY(-5px)",
+                                }}
                             />
                         }
                     />
@@ -50,9 +53,9 @@ export const ListCard = (props: ListCardProps) => {
                 {props.userNickname}
                 {!isMore && (
                     <>
-                        <CommentBoxLimitText>
+                        <ContentBoxLimitText>
                             {props.comment}
-                        </CommentBoxLimitText>
+                        </ContentBoxLimitText>
                         <Button
                             text="더보기"
                             textColor="#aaa"
@@ -66,8 +69,29 @@ export const ListCard = (props: ListCardProps) => {
                         />
                     </>
                 )}
-                {isMore && <CommentBoxText>{props.comment}</CommentBoxText>}
+                {isMore && <ContentBoxText>{props.comment}</ContentBoxText>}
             </CardComentBox>
+            <CommentBox>
+                <Input
+                    type="text"
+                    style={{ border: "none" }}
+                    value={comment}
+                    onChange={(e) => {
+                        setComment(e.target.value);
+                    }}
+                    placeholder="댓글 달기..."
+                />
+                <Button
+                    text="게시"
+                    textColor="#0095F6"
+                    backgroundColor="#fff"
+                    border="none"
+                    onClick={() => {
+                        console.log("dddd");
+                    }}
+                    width="fit-content"
+                />
+            </CommentBox>
         </CardContainer>
     );
 };
@@ -107,7 +131,7 @@ const CardComentBox = styled.div`
     padding: 10px;
     box-sizing: border-box;
 `;
-const CommentBoxLimitText = styled.p`
+const ContentBoxLimitText = styled.p`
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -117,7 +141,7 @@ const CommentBoxLimitText = styled.p`
     -webkit-box-orient: vertical;
     margin: 0;
 `;
-const CommentBoxText = styled.p`
+const ContentBoxText = styled.p`
     font-size: 12px;
     margin: 0;
     padding: 0;
@@ -128,4 +152,8 @@ const LeftIconArea = styled.div`
 const RightIconArea = styled.div`
     display: flex;
     justify-content: end;
+`;
+const CommentBox = styled.div`
+    display: flex;
+    border-top: 1px solid #ddd;
 `;
