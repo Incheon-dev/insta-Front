@@ -12,6 +12,7 @@ export type ListCardProps = {
     userInfo?: any;
     likeCounnt: number;
     comment: string;
+    regidate?: string;
 };
 export const ListCard = (props: ListCardProps) => {
     const [isMore, setIsMore] = useState<boolean>(false);
@@ -50,7 +51,6 @@ export const ListCard = (props: ListCardProps) => {
             </CardIconToolbar>
             <CardContent>좋아요 {props.likeCounnt}개</CardContent>
             <CardComentBox>
-                {props.userNickname}
                 {!isMore && (
                     <>
                         <ContentBoxLimitText>
@@ -71,6 +71,7 @@ export const ListCard = (props: ListCardProps) => {
                 )}
                 {isMore && <ContentBoxText>{props.comment}</ContentBoxText>}
             </CardComentBox>
+            <Posttime>12시간 전</Posttime>
             <CommentBox>
                 <Input
                     type="text"
@@ -124,15 +125,18 @@ const CardIconToolbar = styled.div`
 const CardContent = styled.div`
     padding: 0 10px;
     box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
 `;
 const CardComentBox = styled.div`
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
     box-sizing: border-box;
+    font-size: 14px;
 `;
 const ContentBoxLimitText = styled.p`
-    font-size: 12px;
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -142,7 +146,7 @@ const ContentBoxLimitText = styled.p`
     margin: 0;
 `;
 const ContentBoxText = styled.p`
-    font-size: 12px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
 `;
@@ -156,4 +160,9 @@ const RightIconArea = styled.div`
 const CommentBox = styled.div`
     display: flex;
     border-top: 1px solid #ddd;
+`;
+const Posttime = styled.div`
+    font-size: 11px;
+    color: #aaa;
+    padding: 10px;
 `;
