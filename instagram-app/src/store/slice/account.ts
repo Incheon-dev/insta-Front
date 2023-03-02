@@ -54,6 +54,7 @@ export const accountSlice = createSlice({
             validateEmail.fulfilled,
             (state, action: PayloadAction<accountState["validateEmail"]>) => {
                 let payload = action.payload;
+                console.log("payload = ",payload);
                 return {
                     ...state,
                     validateEmail: payload,
@@ -115,7 +116,7 @@ export const accountSlice = createSlice({
             (state, action: PayloadAction<accountState["isVerifyEmail"]>) => {
                 return {
                     ...state,
-                    isVerifyEmail: action.payload,
+                    isVerifyEmail: true,
                 };
             }
         );
