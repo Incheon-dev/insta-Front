@@ -2,7 +2,7 @@ import React, { useState, useEffect, ReactElement } from "react";
 import ResponsiveDrawer from "../components/navigation";
 import { navMenus } from "../constant/menus";
 import { useLocations } from "../hooks";
-import { Modal } from "../components/";
+import { Modal ,PostModal} from "../components/";
 import styled from "styled-components";
 
 export type layoutProps = {

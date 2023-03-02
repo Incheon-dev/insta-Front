@@ -13,6 +13,7 @@ export type ListCardProps = {
     likeCounnt: number;
     comment: string;
     regidate?: string;
+    onClickComment?:()=>void;
 };
 export const ListCard = (props: ListCardProps) => {
     const [isMore, setIsMore] = useState<boolean>(false);
@@ -71,6 +72,19 @@ export const ListCard = (props: ListCardProps) => {
                 )}
                 {isMore && <ContentBoxText>{props.comment}</ContentBoxText>}
             </CardComentBox>
+            <Button
+                text="댓글 141개 모두 보기"
+                textColor="#aaa"
+                backgroundColor="#fff"
+                border="none"
+                onClick={() => {
+                    if(props.onClickComment){
+                        props.onClickComment();
+                    }
+                }}
+                width="fit-content"
+                style={{ padding:"10px",margin: 0 ,textAlign:"left"}}
+            />
             <Posttime>12시간 전</Posttime>
             <CommentBox>
                 <Input

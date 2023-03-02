@@ -47,6 +47,7 @@ const DefaultBtn = styled.button`
     padding: 10px 15px;
     flex-shrink:0;
     flex-grow:0;
+    cursor:pointer;
     border:${(props: StyledProps) =>
         props.border ? props.border : "1px solid #ddd"};
     width: ${(props: StyledProps) =>
