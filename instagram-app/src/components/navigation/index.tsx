@@ -49,7 +49,7 @@ export default function ResponsiveDrawer(props: Props) {
         window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex" ,zIndex:10}}>
             <CssBaseline />
             <Box
                 component="nav"

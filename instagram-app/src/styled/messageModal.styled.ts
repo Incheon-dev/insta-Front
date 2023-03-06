@@ -6,6 +6,7 @@ type styledProps = {
 
 export const ModalBackground = styled.div`
     position: absolute;
+    z-index:100;
     left: 0;
     top: 0;
     bottom: 0;
