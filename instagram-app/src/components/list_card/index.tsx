@@ -59,7 +59,7 @@ export const ListCard = (props: ListCardProps) => {
                         </ContentBoxLimitText>
                         <Button
                             text="더보기"
-                            textColor="#aaa"
+                            textColor="#999"
                             backgroundColor="#fff"
                             border="none"
                             onClick={() => {
@@ -74,7 +74,7 @@ export const ListCard = (props: ListCardProps) => {
             </CardComentBox>
             <Button
                 text="댓글 141개 모두 보기"
-                textColor="#aaa"
+                textColor="#999"
                 backgroundColor="#fff"
                 border="none"
                 onClick={() => {
@@ -177,6 +177,6 @@ const CommentBox = styled.div`
 `;
 const Posttime = styled.div`
     font-size: 11px;
-    color: #aaa;
+    color: #999;
     padding: 10px;
 `;

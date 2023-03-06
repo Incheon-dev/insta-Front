@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import * as S from "../../styled";
 import Img from "../images/default";
 import { Input, Button } from "../";
@@ -34,19 +33,131 @@ export const PostModal = ({ ...props }: PostModalProps) => {
                     </S.PostRatioBox>
                 </S.PostImageWrap>
                 <S.PostContentWrap>
-                    <CardHeader>
+                    <S.PostCardHeader>
                         <Img
                             style={{ width: "32px", height: "32px" }}
                             src="http://via.placeholder.com/100x100"
                             shape="CIRCLE"
                         />
-                        <CardHeaderTitle>donguen1014</CardHeaderTitle>
-                    </CardHeader>
+                        <S.PostCardHeaderTitle>donguen1014</S.PostCardHeaderTitle>
+                    </S.PostCardHeader>
                     <S.PostListWrap>
-                        dddd
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        <S.PostComment>
+                            <S.CommentUserImgWrap>
+                                <Img
+                                    style={{ width: "32px", height: "32px" }}
+                                    src="http://via.placeholder.com/100x100"
+                                    shape="CIRCLE"
+                                />
+                            </S.CommentUserImgWrap>
+                            <S.CommentTextBox>
+                                <S.CommentTextUserInfo>
+                                    <S.CommentUserName>donguen1014</S.CommentUserName>
+                                    <S.CommentText>흑백사진 피드가 좋네요 ^^</S.CommentText>
+                                </S.CommentTextUserInfo>
+                                <S.CommentRegDate>1시간전</S.CommentRegDate>
+                            </S.CommentTextBox>
+                        </S.PostComment>
+                        
                     </S.PostListWrap>
-                    <CardIconToolbar>
-                        <LeftIconArea>
+                    <S.PostCardIconToolbar>
+                        <S.LeftIconArea>
                             <IconBtn icons={<FavoriteBorderIcon />} />
                             <IconBtn icons={<ChatBubbleOutlineRoundedIcon />} />
                             <IconBtn
@@ -59,13 +170,13 @@ export const PostModal = ({ ...props }: PostModalProps) => {
                                     />
                                 }
                             />
-                        </LeftIconArea>
-                        <RightIconArea>
+                        </S.LeftIconArea>
+                        <S.RightIconArea>
                             <IconBtn icons={<BookmarkBorderIcon />} />
-                        </RightIconArea>
-                    </CardIconToolbar>
-                    <CardContent>좋아요 200개</CardContent>
-                    <CommentBox>
+                        </S.RightIconArea>
+                    </S.PostCardIconToolbar>
+                    <S.PostCardContent>좋아요 200개</S.PostCardContent>
+                <S.PostCommentBox>
                     <Input
                         type="text"
                         style={{ border: "none" }}
@@ -85,80 +196,10 @@ export const PostModal = ({ ...props }: PostModalProps) => {
                         }}
                         width="fit-content"
                     />
-            </CommentBox>
+            </S.PostCommentBox>
                 </S.PostContentWrap>
 			</S.PostModalContainer>
         </S.ModalBackground>
     );
 };
 
-const CardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 1.5px solid #ddd;
-    width: 450px;
-`;
-const CardHeader = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 10px;
-`;
-const CardHeaderTitle = styled.p`
-    font-weight: bold;
-    font-size: 16px;
-`;
-const ThumbnailWrap = styled.div`
-    width: 20px;
-    height: 20px;
-`;
-const CardImageWrap = styled.div``;
-const CardIconToolbar = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-const CardContent = styled.div`
-    padding: 0 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-    font-weight: bold;
-`;
-const CardComentBox = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-`;
-const ContentBoxLimitText = styled.p`
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    margin: 0;
-`;
-const ContentBoxText = styled.p`
-    font-size: 14px;
-    margin: 0;
-    padding: 0;
-`;
-const LeftIconArea = styled.div`
-    display: flex;
-`;
-const RightIconArea = styled.div`
-    display: flex;
-    justify-content: end;
-`;
-const CommentBox = styled.div`
-    display: flex;
-    border-top: 1px solid #ddd;
-`;
-const Posttime = styled.div`
-    font-size: 11px;
-    color: #aaa;
-    padding: 10px;
-`;
