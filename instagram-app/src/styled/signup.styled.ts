@@ -1,4 +1,3 @@
-import { Wrap } from "./default.styled";
 import styled from "styled-components";
 
 export const SignUpContainer = styled.div`
