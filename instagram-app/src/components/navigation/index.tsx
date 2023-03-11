@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -27,6 +28,7 @@ interface Props {
 
 export default function ResponsiveDrawer(props: Props) {
     const { window } = props;
+    const navigate = useNavigate();
 
     const drawer = (
         <div>
@@ -34,7 +36,11 @@ export default function ResponsiveDrawer(props: Props) {
                 {props.navList.map((nav: navType, index: number) => {
                     return (
                         <ListItem key={nav.title} disablePadding>
-                            <ListItemButton>
+                            <ListItemButton
+                                onClick={() => {
+                                    navigate(nav.path, { replace: false });
+                                }}
+                            >
                                 {/* <ListItemIcon></ListItemIcon> */}
                                 <ListItemText primary={nav.title} />
                             </ListItemButton>
@@ -49,7 +55,7 @@ export default function ResponsiveDrawer(props: Props) {
         window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: "flex" ,zIndex:10}}>
+        <Box sx={{ display: "flex", zIndex: 10 }}>
             <CssBaseline />
             <Box
                 component="nav"

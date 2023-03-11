@@ -28,7 +28,7 @@ export const navMenus = [
         title: "만들기",
     },
     {
-        path: "",
+        path: "/user",
         title: "프로필",
     },
 ];
