@@ -24,7 +24,7 @@ export const PageList = (props: pageListType) => {
             <Route path="/home" element={<HomePage />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignupPage />}></Route>
-            <Route path="/user/:id" element={<UserPage />}></Route>
+            <Route path="/user/:email" element={<UserPage />}></Route>
         </Routes>
     );
 };
