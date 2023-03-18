@@ -18,6 +18,7 @@ export type accountState = {
     addUser?: boolean;
     validateEmail?: boolean | null;
     isLogin: boolean;
+    userInfo?: UserState;
 };
 
 const initialState: accountState = {
@@ -29,6 +30,15 @@ const initialState: accountState = {
     addUser: false,
     validateEmail: null,
     isLogin: false,
+    userInfo: {
+        email: "dongeun1014@naver.com",
+        introduction: null,
+        name: "이동은",
+        nickname: "은동",
+        phoneNumber: "01050419104",
+        profileImage: null,
+        sex: "남성",
+    },
 };
 
 export const accountSlice = createSlice({
@@ -54,7 +64,7 @@ export const accountSlice = createSlice({
             validateEmail.fulfilled,
             (state, action: PayloadAction<accountState["validateEmail"]>) => {
                 let payload = action.payload;
-                console.log("payload = ",payload);
+                console.log("payload = ", payload);
                 return {
                     ...state,
                     validateEmail: payload,
@@ -174,6 +184,7 @@ export const accountSlice = createSlice({
                 return {
                     ...state,
                     isLogin: true,
+                    userInfo: action.payload,
                 };
             }
         );
