@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
 import Img from "../components/images/default";
-import { ListCard, PostModal } from "../components";
+import { PostImage, PostModal } from "../components";
 
 const UserPage = () => {
     const { email } = useParams();
@@ -16,6 +16,7 @@ const UserPage = () => {
     };
     return (
         <S.userInfoContainer>
+            <PostModal visible={visiblePostModal} onClose={onCloseModal} />
             <S.userinfoHeader>
                 <S.userProfileWrap>
                     <Img
@@ -34,7 +35,57 @@ const UserPage = () => {
                     <S.userName>이동은</S.userName>
                 </S.userInfo>
             </S.userinfoHeader>
-            <S.contentWrap>게시물 들어가는곳</S.contentWrap>
+            <S.contentWrap>
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+                <PostImage
+                    onClickPost={() => {
+                        setVisiblePostModal(true);
+                    }}
+                    likeCounnt={20}
+                    commentCount={5}
+                />
+            </S.contentWrap>
         </S.userInfoContainer>
     );
 };

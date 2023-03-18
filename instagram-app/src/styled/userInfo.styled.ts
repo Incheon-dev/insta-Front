@@ -6,12 +6,14 @@ export const userInfoContainer = styled.div`
     align-items: center;
     max-width: 930px;
     margin: 0 auto;
+    overflow: hidden;
 `;
 export const userinfoHeader = styled.div`
     display: flex;
     padding: 30px;
     box-sizing: border-box;
     width: 80%;
+    margin-bottom: 50px;
 `;
 export const userInfo = styled.section`
     width: 75%;
@@ -46,4 +48,14 @@ export const countText = styled.p`
 `;
 export const introduceText = styled.p``;
 export const storyWrap = styled.div``;
-export const contentWrap = styled.div``;
+export const contentWrap = styled.div`
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: start;
+    cursor: pointer;
+    & > * {
+        width: calc(33% - 40px);
+    }
+`;

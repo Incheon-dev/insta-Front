@@ -24,7 +24,6 @@ const HomePage = () => {
                     24시간 운영해서 2차로 가기 딱 좋아요!!
                     단골만 아는 김치찌개, 비빔국수도 맛도리입니다ㅠ"
                     onClickComment={() => {
-                        console.log("댓글창 열어주세요.");
                         setVisiblePostModal(true);
                     }}
                 />
