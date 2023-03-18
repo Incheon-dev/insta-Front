@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
+import Img from "../components/images/default";
 import { ListCard, PostModal } from "../components";
 
 const UserPage = () => {
-    const { id } = useParams();
+    const { email } = useParams();
     const [visiblePostModal, setVisiblePostModal] = useState<boolean>(false);
     useEffect(() => {
         setVisiblePostModal(false);
@@ -13,6 +14,28 @@ const UserPage = () => {
     const onCloseModal = () => {
         setVisiblePostModal(false);
     };
-    return <S.HomeContainer></S.HomeContainer>;
+    return (
+        <S.userInfoContainer>
+            <S.userinfoHeader>
+                <S.userProfileWrap>
+                    <Img
+                        src="http://via.placeholder.com/450x450"
+                        shape="CIRCLE"
+                        style={{ width: "150px", height: "150px" }}
+                    />
+                </S.userProfileWrap>
+                <S.userInfo>
+                    <S.userNickname>dongeun_i</S.userNickname>
+                    <S.userDetail>
+                        <S.countText>게시물 11</S.countText>
+                        <S.countText>팔로우 11</S.countText>
+                        <S.countText>팔로워 11</S.countText>
+                    </S.userDetail>
+                    <S.userName>이동은</S.userName>
+                </S.userInfo>
+            </S.userinfoHeader>
+            <S.contentWrap>게시물 들어가는곳</S.contentWrap>
+        </S.userInfoContainer>
+    );
 };
 export default UserPage;
