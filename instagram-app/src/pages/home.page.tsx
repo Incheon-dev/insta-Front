@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
-import { ListCard, PostModal } from "../components";
+import { ListCard, PostViewModal } from "../components";
 
 const HomePage = () => {
     const [visiblePostModal, setVisiblePostModal] = useState<boolean>(false);
@@ -14,7 +14,7 @@ const HomePage = () => {
     return (
         <S.HomeContainer>
             <S.ContentWrap>
-                <PostModal visible={visiblePostModal} onClose={onCloseModal} />
+                <PostViewModal visible={visiblePostModal} onClose={onCloseModal} />
                 <ListCard
                     userNickname="홍길동"
                     likeCounnt={30}
