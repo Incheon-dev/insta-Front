@@ -3,6 +3,7 @@ export * from "./button";
 export * from "./text/default";
 export * from "./text/link";
 export * from "./modal/messageMoal";
+export * from "./modal/postViewModal";
 export * from "./modal/postModal";
 export * from "./loading";
 export * from "./select";
