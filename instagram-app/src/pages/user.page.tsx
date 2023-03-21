@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../styled";
 import Img from "../components/images/default";
-import { PostImage, PostModal } from "../components";
+import { PostImage, PostViewModal } from "../components";
 
 const UserPage = () => {
     const { email } = useParams();
@@ -16,7 +16,7 @@ const UserPage = () => {
     };
     return (
         <S.userInfoContainer>
-            <PostModal visible={visiblePostModal} onClose={onCloseModal} />
+            <PostViewModal visible={visiblePostModal} onClose={onCloseModal} />
             <S.userinfoHeader>
                 <S.userProfileWrap>
                     <Img
