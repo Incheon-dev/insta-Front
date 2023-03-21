@@ -12,22 +12,17 @@ import ListItemText from "@mui/material/ListItemText";
 
 const drawerWidth = 240;
 export type navType = {
-    path: string;
     title: string;
     icons?: string;
+    onClick:()=>void;
 };
 interface Props {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     navList: navType[];
     window?: () => Window;
     useMenus?: boolean;
 }
 
 export default function ResponsiveDrawer(props: Props) {
-    const { window } = props;
     const navigate = useNavigate();
 
     const drawer = (
@@ -38,7 +33,7 @@ export default function ResponsiveDrawer(props: Props) {
                         <ListItem key={nav.title} disablePadding>
                             <ListItemButton
                                 onClick={() => {
-                                    navigate(nav.path, { replace: false });
+                                   nav.onClick();
                                 }}
                             >
                                 {/* <ListItemIcon></ListItemIcon> */}
@@ -50,9 +45,6 @@ export default function ResponsiveDrawer(props: Props) {
             </List>
         </div>
     );
-
-    const container =
-        window !== undefined ? () => window().document.body : undefined;
 
     return (
         <Box sx={{ display: "flex", zIndex: 10 }}>
